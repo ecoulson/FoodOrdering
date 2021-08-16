@@ -6,13 +6,14 @@ namespace Ordering
     {
         public Guid Value { get; }
 
-        public OrderId(): this(Guid.NewGuid()) { }
-
-        public OrderId(OrderId copy) : this(copy.Value) { }
-
-        private OrderId(Guid value)
+        public OrderId()
         {
-            Value = value;
+            Value = Guid.NewGuid();
+        }
+
+        public OrderId(OrderId copy) {
+            Assert.NotNull(copy, "Can not create a copy of a null order id");
+            Value = copy.Value;
         }
 
         public bool Equals(OrderId other)

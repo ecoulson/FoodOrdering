@@ -3,11 +3,19 @@ namespace Ordering
 {
     internal class Assert
     {
-        public static void NotNull(Object o, string message)
+        public static void NotNull(object o, string message)
         {
             if (o == null)
             {
                 throw new ArgumentNullException(message);
+            }
+        }
+
+        public static void Positive(int i, string message)
+        {
+            if (i <= 0)
+            {
+                throw new ArgumentOutOfRangeException(message);
             }
         }
     }

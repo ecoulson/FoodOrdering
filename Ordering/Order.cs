@@ -11,10 +11,10 @@ namespace Ordering
 
         public Order(OrderId id, OrderState state, List<OrderItem> items)
         {
-            Assert.NotNull(id, "Order ids can not be null");
+            Assert.NotNull(id, "[Order] ids can not be null");
             this.id = id;
             State = state;
-            Assert.NotNull(items, "Order items list can not be null");
+            Assert.NotNull(items, "[Order] items list can not be null");
             this.items = new List<OrderItem>(items);
         }
 

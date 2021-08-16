@@ -12,7 +12,7 @@ namespace Ordering
         }
 
         public OrderId(OrderId copy) {
-            Assert.NotNull(copy, "Can not create a copy of a null order id");
+            Assert.NotNull(copy, "[OrderId] Can not create a copy of a null order id");
             Value = copy.Value;
         }
 

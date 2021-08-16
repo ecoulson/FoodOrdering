@@ -11,7 +11,9 @@ namespace Ordering
 
         public OrderItem(MenuItem menuItem, int quantity)
         {
+            Assert.NotNull(menuItem, "[OrderItem] Menu item can not be null");
             MenuItem = menuItem;
+            Assert.Positive(quantity, "[OrderItem] Quantity must be greater than 0. Was " + quantity);
             Quantity = quantity;
         }
     }

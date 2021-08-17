@@ -3,7 +3,7 @@ using Menu;
 
 namespace Ordering
 {
-    public class InvoiceItem: IInvoiceItem
+    internal class InvoiceItem: IInvoiceItem
     {
         public IOrderItem OrderItem { get; }
         public ITotal Total { get; }

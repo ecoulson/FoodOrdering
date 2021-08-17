@@ -1,6 +1,6 @@
 ﻿namespace Ordering
 {
-    public enum OrderState
+    internal enum OrderState
     {
         WaitingForPayment,
         CookingItem,

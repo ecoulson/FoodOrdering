@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Menu;
+using Moq;
 using Xunit;
 
 
@@ -28,18 +29,19 @@ namespace Ordering.Tests
         [Fact]
         public void WHEN_InvoiceIsCreatedForAnOrderWithAnItem_SHOULD_ReturnAnInvoiceWithCostAndItems()
         {
-            var orderId = new OrderId();
+            var mockOrderId = new Mock<OrderId>();
+            var mockOrderItem = GetMockOrderItem(2, 500);
 
             var order = new Order(
-                orderId,
+                mockOrderId.Object,
                 OrderState.WaitingForPayment,
-                new List<OrderItem> { new OrderItem(new MenuItem("", "", 5), 1) }
+                new List<OrderItem> { mockOrderItem.Object }
             );
 
             var invoice = order.getInvoice();
 
-            Assert.Equal(5, invoice.Total.Cost);
-            Assert.Equal(orderId, invoice.OrderId);
+            Assert.Equal(1000, invoice.Total.Cost);
+            Assert.Equal(mockOrderId.Object, invoice.OrderId);
             Assert.Single(invoice.Items);
         }
 
@@ -48,7 +50,8 @@ namespace Ordering.Tests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Order(new OrderId(), OrderState.WaitingForPayment, null);
+                var mockOrderId = new Mock<OrderId>();
+                new Order(mockOrderId.Object, OrderState.WaitingForPayment, null);
             });
         }
 
@@ -59,6 +62,13 @@ namespace Ordering.Tests
             {
                 new Order(null, OrderState.WaitingForPayment, new List<OrderItem>());
             });
+        }
+
+        private Mock<OrderItem> GetMockOrderItem(int amount, int cost)
+        {
+            var mockMenuItem = new Mock<MenuItem>("", "", cost);
+            var mockQuantity = new Mock<Quantity>(amount);
+            return new Mock<OrderItem>(mockMenuItem.Object, mockQuantity.Object);
         }
     }
 }

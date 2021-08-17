@@ -1,5 +1,6 @@
 ﻿using System;
 using Menu;
+using Moq;
 using Xunit;
 
 namespace Ordering.Tests
@@ -9,9 +10,11 @@ namespace Ordering.Tests
         [Fact]
         public void WHEN_OrderItemIsCreated_SHOULD_HaveExcepectedValues()
         {
-            var orderItem = new OrderItem(new MenuItem("", "", 2), 3);
+            var mockMenuItem = new Mock<MenuItem>("", "", 0);
+            var mockQuantity = new Mock<Quantity>(2);
+            var orderItem = new OrderItem(mockMenuItem.Object, mockQuantity.Object);
 
-            Assert.Equal(3, orderItem.Quantity);
+            Assert.NotNull(orderItem.Quantity);
             Assert.NotNull(orderItem.MenuItem);
         }
 
@@ -20,16 +23,18 @@ namespace Ordering.Tests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new OrderItem(null, 3);
+                var mockQuantity = new Mock<Quantity>(2);
+                new OrderItem(null, mockQuantity.Object);
             });
         }
 
         [Fact]
         public void WHEN_OrderItemIsCreatedWithNegativeQuantity_SHOULD_ThrowException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                new OrderItem(new MenuItem("", "", 2), -2);
+                var mockMenuItem = new Mock<MenuItem>("", "", 0);
+                new OrderItem(mockMenuItem.Object, null);
             });
         }
     }

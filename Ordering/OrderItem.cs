@@ -7,13 +7,13 @@ namespace Ordering
     {
 
         public MenuItem MenuItem { get; }
-        public int Quantity { get; }
+        public Quantity Quantity { get; }
 
-        public OrderItem(MenuItem menuItem, int quantity)
+        public OrderItem(MenuItem menuItem, Quantity quantity)
         {
             Assert.NotNull(menuItem, "[OrderItem] Menu item can not be null");
             MenuItem = menuItem;
-            Assert.Positive(quantity, "[OrderItem] Quantity must be greater than 0. Was " + quantity);
+            Assert.NotNull(quantity, "[OrderItem] Quantity can not be null");
             Quantity = quantity;
         }
     }

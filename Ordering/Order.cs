@@ -20,10 +20,10 @@ namespace Ordering
 
         public Invoice getInvoice()
         {
-            var total = new Total(0);
+            var total = Total.Zero();
             foreach (var orderItem in items)
             {
-                total.AddToTotal(orderItem.MenuItem.Cost);
+                total.AddToTotal(orderItem);
             }
             return new Invoice(id, new List<OrderItem>(items), total);
         }

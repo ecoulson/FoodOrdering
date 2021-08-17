@@ -1,6 +1,5 @@
 ﻿using System;
 using Xunit;
-using Ordering;
 
 namespace Ordering.Tests
 {

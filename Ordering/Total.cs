@@ -12,9 +12,14 @@ namespace Ordering
             this.cost = cost;
         }
 
-        public void AddToTotal(int amount)
+        public static Total Zero()
         {
-            cost += amount;
+            return new Total(0);
+        }
+
+        public void AddToTotal(OrderItem item)
+        {
+            cost += item.MenuItem.Cost * item.Quantity.Value;
         }
     }
 }

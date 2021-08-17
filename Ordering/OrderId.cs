@@ -2,7 +2,7 @@
 
 namespace Ordering
 {
-    public class OrderId: IEquatable<OrderId>
+    internal class OrderId: IOrderId, IEquatable<OrderId>
     {
         public Guid Value { get; }
 

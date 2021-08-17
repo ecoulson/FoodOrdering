@@ -1,7 +1,6 @@
-﻿using System;
-namespace Ordering
+﻿namespace Ordering
 {
-    public class Quantity
+    internal class Quantity: IQuantity
     {
         public int Value { get; }
 

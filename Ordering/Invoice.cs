@@ -3,21 +3,17 @@ using System.Collections.Generic;
 
 namespace Ordering
 {
-    public class Invoice
+    internal class Invoice: IInvoice
     {
-        private OrderId orderId;
-        private List<OrderItem> orderItems;
-        private Total total;
+        public IOrderId OrderId { get; }
+        public List<IOrderItem> Items { get; }
+        public ITotal Total { get; }
 
-        public OrderId OrderId { get { return orderId; } }
-        public List<OrderItem> Items { get { return orderItems; } }
-        public Total Total { get { return total; } }
-
-        public Invoice(OrderId orderId, List<OrderItem> orderItems, Total total)
+        public Invoice(IOrderId orderId, List<IOrderItem> orderItems, ITotal total)
         {
-            this.orderId = orderId;
-            this.orderItems = orderItems;
-            this.total = total;
+            OrderId = orderId;
+            Items = orderItems;
+            Total = total;
         }
     }
 }

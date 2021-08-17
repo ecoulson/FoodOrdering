@@ -10,13 +10,13 @@ namespace Ordering.Tests
         {
             var id = new OrderId();
 
-            Assert.IsType<Guid>(id.Value);
+            Xunit.Assert.IsType<Guid>(id.Value);
         }
 
         [Fact]
         public void WHEN_OrderIdIsCreatedWithANullOrderId_SHOULD_ThrowAnException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
+            Xunit.Assert.Throws<ArgumentNullException>(() =>
             {
                 new OrderId(null);
             });

@@ -18,5 +18,13 @@ namespace Ordering
                 throw new ArgumentOutOfRangeException(message);
             }
         }
+
+        public static void NotNegative(int i, string message)
+        {
+            if (i < 0)
+            {
+                throw new ArgumentOutOfRangeException(message);
+            }
+        }
     }
 }

@@ -35,7 +35,6 @@ namespace Ordering.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            OrderId id = new OrderId();
             app.UseHttpsRedirection();
 
             app.UseRouting();

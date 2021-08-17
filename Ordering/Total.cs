@@ -1,7 +1,6 @@
-﻿using System;
-namespace Ordering
+﻿namespace Ordering
 {
-    public class Total
+    internal class Total: ITotal
     {
         private int cost;
 
@@ -9,6 +8,7 @@ namespace Ordering
 
         public Total(int cost)
         {
+            Assert.NotNegative(cost, "[Total] Cost can not be negative. Was " + cost);
             this.cost = cost;
         }
 
@@ -17,7 +17,7 @@ namespace Ordering
             return new Total(0);
         }
 
-        public void AddToTotal(OrderItem item)
+        public void AddToTotal(IOrderItem item)
         {
             cost += item.MenuItem.Cost * item.Quantity.Value;
         }

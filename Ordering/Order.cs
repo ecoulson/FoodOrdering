@@ -2,30 +2,30 @@
 
 namespace Ordering
 {
-    public class Order
+    internal class Order: IOrder
     {
-        private OrderId id;
-        private List<OrderItem> items;
+        private IOrderId id;
+        private readonly List<IOrderItem> items;
 
         public OrderState State { get; }
 
-        public Order(OrderId id, OrderState state, List<OrderItem> items)
+        public Order(IOrderId id, OrderState state, List<IOrderItem> items)
         {
             Assert.NotNull(id, "[Order] ids can not be null");
             this.id = id;
             State = state;
             Assert.NotNull(items, "[Order] items list can not be null");
-            this.items = new List<OrderItem>(items);
+            this.items = new List<IOrderItem>(items);
         }
 
-        public Invoice getInvoice()
+        public IInvoice getInvoice()
         {
             var total = Total.Zero();
             foreach (var orderItem in items)
             {
                 total.AddToTotal(orderItem);
             }
-            return new Invoice(id, new List<OrderItem>(items), total);
+            return new Invoice(id, new List<IOrderItem>(items), total);
         }
     }
 }

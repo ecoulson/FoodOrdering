@@ -1,5 +1,4 @@
-﻿using System;
-namespace Ordering
+﻿namespace Ordering
 {
     public enum OrderState
     {

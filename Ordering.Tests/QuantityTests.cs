@@ -10,13 +10,13 @@ namespace Ordering.Tests
         {
             var quantity = new Quantity(3);
 
-            Assert.Equal(3, quantity.Value);
+            Xunit.Assert.Equal(3, quantity.Value);
         }
 
         [Fact]
         public void WHEN_CreatingAQuantityWithANonPositiveAmount_SHOULD_ThrowAnException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Xunit.Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
                 new Quantity(0);
             });

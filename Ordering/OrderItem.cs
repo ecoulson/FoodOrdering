@@ -1,15 +1,13 @@
-﻿using System;
-using Menu;
+﻿using Menu;
 
 namespace Ordering
 {
-    public class OrderItem
+    internal class OrderItem: IOrderItem
     {
+        public IMenuItem MenuItem { get; }
+        public IQuantity Quantity { get; }
 
-        public MenuItem MenuItem { get; }
-        public Quantity Quantity { get; }
-
-        public OrderItem(MenuItem menuItem, Quantity quantity)
+        public OrderItem(IMenuItem menuItem, IQuantity quantity)
         {
             Assert.NotNull(menuItem, "[OrderItem] Menu item can not be null");
             MenuItem = menuItem;

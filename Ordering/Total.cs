@@ -17,9 +17,20 @@
             return new Total(0);
         }
 
-        public void AddToTotal(IOrderItem item)
+        public static Total FromOrderItem(IOrderItem orderItem)
         {
-            cost += item.MenuItem.Cost * item.Quantity.Value;
+            var total = Zero();
+            total.AddToTotal(orderItem);
+            return total;
+        }
+
+        public void AddToTotal(IOrderItem orderItem)
+        {
+            Assert.NotNull(orderItem, "[Total::AddToTotal] Can not add a null item to the total");
+
+            cost += orderItem.MenuItem.Cost * orderItem.Quantity.Value;
+
+            Assert.Positive(cost, "[Total::AddToTotal] Should not have a negative cost after adding an order item to the total");
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Ordering.Tests
                 new List<IOrderItem>()
             );
 
-            var invoice = order.getInvoice();
+            var invoice = order.GetInvoice();
 
             Xunit.Assert.Equal(0, invoice.Total.Cost);
             Xunit.Assert.Equal(orderId, invoice.OrderId);
@@ -38,10 +38,9 @@ namespace Ordering.Tests
                 new List<IOrderItem> { mockOrderItem.Object }
             );
 
-            var invoice = order.getInvoice();
+            var invoice = order.GetInvoice();
 
             Xunit.Assert.Equal(1000, invoice.Total.Cost);
-            Xunit.Assert.Equal(mockOrderId.Object, invoice.OrderId);
             Xunit.Assert.Single(invoice.Items);
         }
 
@@ -66,21 +65,13 @@ namespace Ordering.Tests
 
         private Mock<IOrderItem> GetMockOrderItem(int amount, int cost)
         {
-            var mockMenuItem = new Mock<IMenuItem>();
-            mockMenuItem
-                .Setup(item => item.Cost)
-                .Returns(cost);
-            var mockQuantity = new Mock<IQuantity>();
-            mockQuantity
-                .Setup(quantity => quantity.Value)
-                .Returns(amount);
             var mockOrderItem = new Mock<IOrderItem>();
             mockOrderItem
-                .Setup(item => item.MenuItem)
-                .Returns(mockMenuItem.Object);
+                .Setup(item => item.MenuItem.Cost)
+                .Returns(cost);
             mockOrderItem
-                .Setup(item => item.Quantity)
-                .Returns(mockQuantity.Object);
+                .Setup(item => item.Quantity.Value)
+                .Returns(amount);
             return mockOrderItem;
         }
     }

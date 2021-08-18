@@ -12,11 +12,13 @@
     <None Remove="Common\" />
     <None Remove="Entites\" />
     <None Remove="Invoice\" />
+    <None Remove="OrderParser\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Service\" />
     <Folder Include="Common\" />
     <Folder Include="Order\" />
     <Folder Include="Invoice\" />
+    <Folder Include="OrderParser\" />
   </ItemGroup>
 </Project>

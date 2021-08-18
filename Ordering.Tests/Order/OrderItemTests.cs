@@ -1,9 +1,10 @@
 ﻿using System;
 using Menu;
 using Moq;
+using Ordering.Order;
 using Xunit;
 
-namespace Ordering.Tests
+namespace Ordering.Tests.Order
 {
     public class OrderItemTests
     {

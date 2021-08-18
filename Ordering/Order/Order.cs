@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace Ordering
+namespace Ordering.Order
 {
+    using Ordering.Invoice;
+
     internal class Order: IOrder
     {
         private IOrderId id;

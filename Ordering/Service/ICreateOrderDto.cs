@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Ordering
+namespace Ordering.Service
 {
     public interface ICreateOrderDto
     {

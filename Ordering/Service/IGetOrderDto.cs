@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Ordering
+namespace Ordering.Service
 {
     public interface IGetOrderDto
     {

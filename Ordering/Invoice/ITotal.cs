@@ -1,5 +1,6 @@
-﻿using System;
-namespace Ordering
+﻿using Ordering.Order;
+
+namespace Ordering.Invoice
 {
     public interface ITotal
     {

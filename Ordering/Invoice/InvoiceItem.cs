@@ -1,7 +1,6 @@
-﻿using System;
-using Menu;
+﻿using Ordering.Order;
 
-namespace Ordering
+namespace Ordering.Invoice
 {
     internal class InvoiceItem: IInvoiceItem
     {

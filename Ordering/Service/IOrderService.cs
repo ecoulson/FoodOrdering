@@ -1,5 +1,7 @@
 ﻿using System;
-namespace Ordering
+using Ordering.Order;
+
+namespace Ordering.Service
 {
     public interface IOrderService
     {

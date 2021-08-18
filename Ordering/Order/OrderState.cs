@@ -1,4 +1,4 @@
-﻿namespace Ordering
+﻿namespace Ordering.Order
 {
     public enum OrderState
     {

@@ -1,6 +1,7 @@
 ﻿using Menu;
+using Ordering.Order;
 
-namespace Ordering
+namespace Ordering.Invoice
 {
     public interface IInvoiceItem
     {

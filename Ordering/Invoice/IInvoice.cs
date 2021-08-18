@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Ordering.Order;
 
-namespace Ordering
+namespace Ordering.Invoice
 {
     public interface IInvoice
     {

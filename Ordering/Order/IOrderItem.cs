@@ -1,6 +1,6 @@
 ﻿using Menu;
 
-namespace Ordering
+namespace Ordering.Order
 {
     public interface IOrderItem
     {

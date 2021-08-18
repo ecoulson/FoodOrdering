@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Ordering
+namespace Ordering.Order
 {
     public interface IOrderId
     {

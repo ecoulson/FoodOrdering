@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Ordering.Order;
 
-namespace Ordering
+namespace Ordering.Invoice
 {
     internal class Invoice: IInvoice
     {

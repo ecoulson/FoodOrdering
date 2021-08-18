@@ -1,4 +1,4 @@
-﻿namespace Ordering
+﻿namespace Ordering.Order
 {
     internal class Quantity: IQuantity
     {

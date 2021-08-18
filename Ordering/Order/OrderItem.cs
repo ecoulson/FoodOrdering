@@ -1,6 +1,6 @@
 ﻿using Menu;
 
-namespace Ordering
+namespace Ordering.Order
 {
     internal class OrderItem: IOrderItem
     {

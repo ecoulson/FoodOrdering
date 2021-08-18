@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ordering
+namespace Ordering.Order
 {
     internal class OrderId: IOrderId, IEquatable<OrderId>
     {

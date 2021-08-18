@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using Moq;
 using Xunit;
 
-namespace Ordering.Tests
+namespace Ordering.Tests.Invoice
 {
+    using Ordering.Invoice;
+    using Ordering.Order;
+
     public class InvoiceTests
     {
         [Fact]

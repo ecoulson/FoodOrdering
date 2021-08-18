@@ -1,4 +1,6 @@
-﻿namespace Ordering
+﻿using Ordering.Order;
+
+namespace Ordering.Invoice
 {
     internal class Total: ITotal
     {

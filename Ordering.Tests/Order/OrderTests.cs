@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using Menu;
 using Moq;
+using Ordering.Order;
 using Xunit;
 
 
-namespace Ordering.Tests
+namespace Ordering.Tests.Order
 {
+    using Ordering.Order;
+
     public class OrderTests
     {
         [Fact]

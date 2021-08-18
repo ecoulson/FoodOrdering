@@ -17,4 +17,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Ordering\Ordering.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Invoice\" />
+    <None Remove="Order\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Invoice\" />
+    <Folder Include="Order\" />
+  </ItemGroup>
 </Project>

@@ -7,4 +7,16 @@
   <ItemGroup>
     <ProjectReference Include="..\Menu\Menu.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Service\" />
+    <None Remove="Common\" />
+    <None Remove="Entites\" />
+    <None Remove="Invoice\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service\" />
+    <Folder Include="Common\" />
+    <Folder Include="Order\" />
+    <Folder Include="Invoice\" />
+  </ItemGroup>
 </Project>

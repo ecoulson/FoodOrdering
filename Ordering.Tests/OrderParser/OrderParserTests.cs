@@ -13,14 +13,14 @@
     {
         private Mock<IOrderLineParser> MockOrderLineParser;
         private Mock<IText> MockText;
-        private Mock<IParserResult<List<IOrderItem>>> MockOrderLineParserResult;
+        private Mock<IOrderLineParseResult> MockOrderLineParserResult;
         private OrderParser Parser;
 
         public OrderParserTests()
         {
             MockOrderLineParser = new Mock<IOrderLineParser>();
             MockText = new Mock<IText>();
-            MockOrderLineParserResult = new Mock<IParserResult<List<IOrderItem>>>();
+            MockOrderLineParserResult = new Mock<IOrderLineParseResult>();
             Parser = new OrderParser(
                 MockOrderLineParser.Object
             );
@@ -53,7 +53,13 @@
         {
             MockOrderLineParser
                 .Setup(parser => parser.Parse(It.IsAny<IText>()))
-                .Throws(new IllegalOrderLineException(new string[0]));       
+                .Returns(MockOrderLineParserResult.Object);
+            MockOrderLineParserResult
+                .Setup(parserResult => parserResult.HasExceptions())
+                .Returns(true);
+            MockOrderLineParserResult
+                .Setup(orderLineResult => orderLineResult.BuildException())
+                .Returns(new IllegalOrderLineException(new string[0]));
 
             Assert.Throws<IllegalOrderLineException>(() =>
             {
@@ -70,7 +76,7 @@
                 .Setup(parser => parser.Parse(It.IsAny<IText>()))
                 .Returns(MockOrderLineParserResult.Object);
             MockOrderLineParserResult
-                .Setup(orderLineResult => orderLineResult.Value)
+                .Setup(orderLineResult => orderLineResult.Items)
                 .Returns(new List<IOrderItem>());
 
             var order = Parser.Parse(MockText.Object);

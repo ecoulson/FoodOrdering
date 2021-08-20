@@ -2,7 +2,9 @@
 using Ordering.Service;
 
 namespace Ordering.OrderParser
-{    
+{
+    using System;
+    using System.Collections.Generic;
     using Ordering.Order;
 
     internal class OrderParser: IOrderParser
@@ -20,9 +22,17 @@ namespace Ordering.OrderParser
             Assert.NotNull(text, "[OrderParser] Text to parse should not be null");
             AssertTextIsNotEmpty(text);
 
-            var orderLinesResult = orderLineParser.Parse(text);
+            return new Order(new OrderId(), OrderState.Created, ParseOrderLines(text));
+        }
 
-            return new Order(new OrderId(), OrderState.Created, orderLinesResult.Value);
+        private List<IOrderItem> ParseOrderLines(IText text)
+        {
+            var result = orderLineParser.Parse(text);
+            if (result.HasExceptions())
+            {
+                throw result.BuildException();
+            }
+            return result.Items;
         }
 
         private void AssertTextIsNotEmpty(IText text)

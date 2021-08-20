@@ -1,19 +1,18 @@
 ﻿using System;
-using Menu;
 using Moq;
-using Xunit;
 
 namespace Ordering.Tests.Invoice
 {
     using Ordering.Invoice;
     using Ordering.Order;
+    using Xunit;
 
     public class TotalTests
     {
         [Fact]
         public void WHEN_CreatingATotalWithNegativeAmount_SHOULD_ThrowException()
         {
-            Xunit.Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
                 new Total(-1);
             });
@@ -27,7 +26,7 @@ namespace Ordering.Tests.Invoice
 
             total.AddToTotal(mockOrderItem.Object);
 
-            Xunit.Assert.Equal(10, total.Cost);
+            Assert.Equal(10, total.Cost);
         }
 
         [Fact]
@@ -35,7 +34,7 @@ namespace Ordering.Tests.Invoice
         {
             var total = Total.Zero();
 
-            Xunit.Assert.Throws<ArgumentNullException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
                 total.AddToTotal(null);
             });
@@ -46,7 +45,7 @@ namespace Ordering.Tests.Invoice
         {
             var total = Total.Zero();
 
-            Xunit.Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
                 total.AddToTotal(getMockOrderItem(1, -5).Object);
             });
@@ -55,7 +54,7 @@ namespace Ordering.Tests.Invoice
         [Fact]
         public void WHEN_CreatingATotalWithZeroValue_SHOULD_CreateAZeroTotal()
         {
-            Xunit.Assert.Equal(0, Total.Zero().Cost);
+            Assert.Equal(0, Total.Zero().Cost);
         }
 
         [Fact]
@@ -63,14 +62,13 @@ namespace Ordering.Tests.Invoice
         {
             var total = Total.FromOrderItem(getMockOrderItem(2, 5).Object);
 
-            Xunit.Assert.Equal(10, total.Cost);
+            Assert.Equal(10, total.Cost);
         }
 
         private Mock<IOrderItem> getMockOrderItem(int amount, int cost)
         {
             var mockOrderItem = new Mock<IOrderItem>();
-            mockOrderItem.Setup(item => item.MenuItem.Cost).Returns(cost);
-            mockOrderItem.Setup(item => item.Quantity.Value).Returns(amount);
+            mockOrderItem.Setup(orderItem => orderItem.Cost()).Returns(amount * cost);
             return mockOrderItem;
         }
     }

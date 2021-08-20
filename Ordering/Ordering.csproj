@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Menu\Menu.csproj" />
+    <ProjectReference Include="..\Payments\Payments.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Service\" />

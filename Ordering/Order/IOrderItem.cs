@@ -6,5 +6,6 @@ namespace Ordering.Order
     {
         IMenuItem MenuItem { get; }
         IQuantity Quantity { get; }
+        int Cost();
     }
 }

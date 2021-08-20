@@ -1,60 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
 using Moq;
-using Xunit;
 
 namespace Ordering.Tests.Invoice
 {
     using Ordering.Invoice;
     using Ordering.Order;
+    using Xunit;
 
     public class InvoiceTests
     {
+        private Mock<ITotal> MockTotal;
+        private Mock<IOrderId> MockOrderId;
+
+        public InvoiceTests()
+        {
+            MockTotal = new Mock<ITotal>();
+            MockOrderId = new Mock<IOrderId>();
+        }
+
         [Fact]
         public void WHEN_CreatingAnInvoice_SHOULD_HaveExcpectedValues()
         {
-            var mockOrderId = new Mock<IOrderId>();
-            var mockTotal = new Mock<ITotal>();
-
             var invoice = new Invoice(
-                mockOrderId.Object,
+                MockOrderId.Object,
                 new List<IInvoiceItem>(),
-                mockTotal.Object
+                MockTotal.Object
             );
 
-            Xunit.Assert.NotNull(invoice.OrderId);
-            Xunit.Assert.NotNull(invoice.Items);
-            Xunit.Assert.NotNull(invoice.Total);
+            Assert.NotNull(invoice.OrderId);
+            Assert.NotNull(invoice.Items);
+            Assert.NotNull(invoice.Total);
         }
 
         [Fact]
         public void WHEN_CreatingAnInvoiceWithNullOrderId_SHOULD_ThrowException()
         {
-            Xunit.Assert.Throws<ArgumentNullException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                var mockTotal = new Mock<ITotal>();
-                new Invoice(null, new List<IInvoiceItem>(), mockTotal.Object);
+                new Invoice(null, new List<IInvoiceItem>(), MockTotal.Object);
             });
         }
 
         [Fact]
         public void WHEN_CreatingAnInvoiceWithNullList_SHOULD_ThrowException()
         {
-            Xunit.Assert.Throws<ArgumentNullException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                var mockOrderId = new Mock<IOrderId>();
-                var mockTotal = new Mock<ITotal>();
-                new Invoice(mockOrderId.Object, null, mockTotal.Object);
+                new Invoice(MockOrderId.Object, null, MockTotal.Object);
             });
         }
 
         [Fact]
         public void WHEN_CreatingAnInvoiceWithNullTotal_SHOULD_ThrowException()
         {
-            Xunit.Assert.Throws<ArgumentNullException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                var mockOrderId = new Mock<IOrderId>();
-                new Invoice(mockOrderId.Object, new List<IInvoiceItem>(), null);
+                new Invoice(MockOrderId.Object, new List<IInvoiceItem>(), null);
             });
         }
     }

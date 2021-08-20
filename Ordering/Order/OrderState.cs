@@ -2,6 +2,7 @@
 {
     public enum OrderState
     {
+        Created,
         WaitingForPayment,
         CookingItem,
         WaitingForPickup,

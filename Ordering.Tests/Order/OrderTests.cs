@@ -1,68 +1,84 @@
 using System;
 using System.Collections.Generic;
-using Menu;
 using Moq;
-using Ordering.Order;
-using Xunit;
 
 
 namespace Ordering.Tests.Order
 {
     using Ordering.Order;
+    using Payments;
+    using Xunit;
 
     public class OrderTests
     {
+        private Mock<IOrderId> MockOrderId;
+        private Mock<IPaymentMethod> MockPaymentMethod;
+
+        public OrderTests()
+        {
+            MockOrderId = new Mock<IOrderId>();
+            MockPaymentMethod = new Mock<IPaymentMethod>();
+        }
+
         [Fact]
         public void WHEN_InvoiceIsCreatedForAnOrderWithNoItems_SHOULD_ReturnAnInvoiceWithNoCostOrItems()
         {
-            var orderId = new Mock<IOrderId>().Object;
             var order = new Order(
-                orderId,
+                MockOrderId.Object,
                 OrderState.WaitingForPayment,
-                new List<IOrderItem>()
+                new List<IOrderItem>(),
+                new Mock<IPaymentMethod>().Object
             );
 
             var invoice = order.GetInvoice();
 
-            Xunit.Assert.Equal(0, invoice.Total.Cost);
-            Xunit.Assert.Equal(orderId, invoice.OrderId);
-            Xunit.Assert.Empty(invoice.Items);
+            Assert.Equal(0, invoice.Total.Cost);
+            Assert.Equal(MockOrderId.Object, invoice.OrderId);
+            Assert.Empty(invoice.Items);
         }
 
         [Fact]
         public void WHEN_InvoiceIsCreatedForAnOrderWithAnItem_SHOULD_ReturnAnInvoiceWithCostAndItems()
         {
-            var mockOrderId = new Mock<IOrderId>();
             var mockOrderItem = GetMockOrderItem(2, 500);
 
             var order = new Order(
-                mockOrderId.Object,
+                MockOrderId.Object,
                 OrderState.WaitingForPayment,
-                new List<IOrderItem> { mockOrderItem.Object }
+                new List<IOrderItem> { mockOrderItem.Object },
+                new Mock<IPaymentMethod>().Object
             );
 
             var invoice = order.GetInvoice();
 
-            Xunit.Assert.Equal(1000, invoice.Total.Cost);
-            Xunit.Assert.Single(invoice.Items);
+            Assert.Equal(1000, invoice.Total.Cost);
+            Assert.Single(invoice.Items);
         }
 
         [Fact]
         public void WHEN_OrderIsCreatedWithNullItems_SHOULD_ThrowAnException()
         {
-            Xunit.Assert.Throws<ArgumentNullException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                var mockOrderId = new Mock<IOrderId>();
-                new Order(mockOrderId.Object, OrderState.WaitingForPayment, null);
+                new Order(MockOrderId.Object, OrderState.WaitingForPayment, null, MockPaymentMethod.Object);
             });
         }
 
         [Fact]
         public void WHEN_OrderIsCreatedWithNullId_SHOULD_ThrowAnException()
         {
-            Xunit.Assert.Throws<ArgumentNullException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                new Order(null, OrderState.WaitingForPayment, new List<IOrderItem>());
+                new Order(null, OrderState.WaitingForPayment, new List<IOrderItem>(), MockPaymentMethod.Object);
+            });
+        }
+
+        [Fact]
+        public void WHEN_OrderIsCreatedWithNullPaymentMethod_SHOULD_ThrowException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                new Order(MockOrderId.Object, OrderState.WaitingForPayment, new List<IOrderItem>(), null);
             });
         }
 
@@ -70,11 +86,8 @@ namespace Ordering.Tests.Order
         {
             var mockOrderItem = new Mock<IOrderItem>();
             mockOrderItem
-                .Setup(item => item.MenuItem.Cost)
-                .Returns(cost);
-            mockOrderItem
-                .Setup(item => item.Quantity.Value)
-                .Returns(amount);
+                .Setup(orderItem => orderItem.Cost())
+                .Returns(amount * cost);
             return mockOrderItem;
         }
     }

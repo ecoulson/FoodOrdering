@@ -1,9 +1,10 @@
 ﻿using System;
 using Ordering.Order;
-using Xunit;
 
 namespace Ordering.Tests.Order
 {
+    using Xunit;
+
     public class QuantityTests
     {
         [Fact]
@@ -11,13 +12,13 @@ namespace Ordering.Tests.Order
         {
             var quantity = new Quantity(3);
 
-            Xunit.Assert.Equal(3, quantity.Value);
+            Assert.Equal(3, quantity.Value);
         }
 
         [Fact]
         public void WHEN_CreatingAQuantityWithANonPositiveAmount_SHOULD_ThrowAnException()
         {
-            Xunit.Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
                 new Quantity(0);
             });

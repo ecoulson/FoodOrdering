@@ -2,40 +2,46 @@
 using Menu;
 using Moq;
 using Ordering.Order;
-using Xunit;
 
 namespace Ordering.Tests.Order
 {
+    using Xunit;
+
     public class OrderItemTests
     {
+        private Mock<IMenuItem> MockMenuItem;
+        private Mock<IQuantity> MockQuantity;
+
+        public OrderItemTests()
+        {
+            MockMenuItem = new Mock<IMenuItem>();
+            MockQuantity = new Mock<IQuantity>();
+        }
+
         [Fact]
         public void WHEN_OrderItemIsCreated_SHOULD_HaveExcepectedValues()
         {
-            var mockMenuItem = new Mock<IMenuItem>();
-            var mockQuantity = new Mock<IQuantity>();
-            var orderItem = new OrderItem(mockMenuItem.Object, mockQuantity.Object);
+            var orderItem = new OrderItem(MockMenuItem.Object, MockQuantity.Object);
 
-            Xunit.Assert.NotNull(orderItem.Quantity);
-            Xunit.Assert.NotNull(orderItem.MenuItem);
+            Assert.NotNull(orderItem.Quantity);
+            Assert.NotNull(orderItem.MenuItem);
         }
 
         [Fact]
         public void WHEN_OrderItemIsCreatedWithNullMenuItem_SHOULD_ThrowException()
         {
-            Xunit.Assert.Throws<ArgumentNullException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                var mockQuantity = new Mock<IQuantity>();
-                new OrderItem(null, mockQuantity.Object);
+                new OrderItem(null, MockQuantity.Object);
             });
         }
 
         [Fact]
         public void WHEN_OrderItemIsCreatedWithNegativeQuantity_SHOULD_ThrowException()
         {
-            Xunit.Assert.Throws<ArgumentNullException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                var mockMenuItem = new Mock<IMenuItem>();
-                new OrderItem(mockMenuItem.Object, null);
+                new OrderItem(MockMenuItem.Object, null);
             });
         }
     }

@@ -1,9 +1,10 @@
 ﻿using System;
 using Ordering.Order;
-using Xunit;
 
 namespace Ordering.Tests.Order
 {
+    using Xunit;
+
     public class OrderIdTests
     {
         [Fact]
@@ -11,13 +12,13 @@ namespace Ordering.Tests.Order
         {
             var id = new OrderId();
 
-            Xunit.Assert.IsType<Guid>(id.Value);
+            Assert.IsType<Guid>(id.Value);
         }
 
         [Fact]
         public void WHEN_OrderIdIsCreatedWithANullOrderId_SHOULD_ThrowAnException()
         {
-            Xunit.Assert.Throws<ArgumentNullException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
                 new OrderId(null);
             });

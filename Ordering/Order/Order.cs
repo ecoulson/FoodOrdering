@@ -3,6 +3,7 @@
 namespace Ordering.Order
 {
     using Ordering.Invoice;
+    using Payments;
 
     internal class Order: IOrder
     {
@@ -10,14 +11,17 @@ namespace Ordering.Order
         private readonly List<IOrderItem> orderItems;
 
         public OrderState State { get; }
+        public IPaymentMethod PaymentMethod { get; }
 
-        public Order(IOrderId id, OrderState state, List<IOrderItem> orderItems)
+        public Order(IOrderId id, OrderState state, List<IOrderItem> orderItems, IPaymentMethod paymentMethod)
         {
             Assert.NotNull(id, "[Order] ids can not be null");
             this.id = id;
             State = state;
             Assert.NotNull(orderItems, "[Order] items list can not be null");
             this.orderItems = new List<IOrderItem>(orderItems);
+            Assert.NotNull(paymentMethod, "[Order] payment method can not be null");
+            this.PaymentMethod = paymentMethod;
         }
 
         public IInvoice GetInvoice()
@@ -27,7 +31,7 @@ namespace Ordering.Order
 
         private List<IInvoiceItem> GetInvoiceItems()
         {
-            return orderItems.ConvertAll((orderItem) => GetInvoiceItemFromOrderItem(orderItem));
+            return orderItems.ConvertAll(GetInvoiceItemFromOrderItem);
         }
 
         private IInvoiceItem GetInvoiceItemFromOrderItem(IOrderItem item)
@@ -40,7 +44,7 @@ namespace Ordering.Order
         private ITotal GetOrderTotal()
         {
             var total = Total.Zero();
-            orderItems.ForEach((orderItem) => total.AddToTotal(orderItem));
+            orderItems.ForEach(total.AddToTotal);
             return total;
         }
     }

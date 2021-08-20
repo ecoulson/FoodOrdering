@@ -14,5 +14,10 @@ namespace Ordering.Order
             Assert.NotNull(quantity, "[OrderItem] Quantity can not be null");
             Quantity = quantity;
         }
+
+        public int Cost()
+        {
+            return MenuItem.Cost * Quantity.Value;
+        }
     }
 }

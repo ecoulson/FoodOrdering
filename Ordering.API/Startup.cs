@@ -10,9 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Ordering.Service;
 
 namespace Ordering.API
 {
+    using Ordering.Order;
+    using Ordering.OrderParser;
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -45,6 +48,14 @@ namespace Ordering.API
             {
                 endpoints.MapControllers();
             });
+
+            //IOrderService orderService = new OrderServiceFactory().CreateService();
+            //IPaymentService paymentService = new PaymentServiceFactory().CreateService();
+            //IPaymentMethodService paymentMethodService = new PaymentMethodServiceFactory().CreateService();
+            //IText text = new TextBuilder().WithContent(request.getText()).Build();
+            //IOrder order = orderService.CreateOrder(new CreateOrderRequest(text));
+            //IPaymentMethod paymentMethod = paymentMethodService.ParsePaymentMethod(text);
+            //paymentService.requestPayment(order, paymentMethod);
         }
     }
 }

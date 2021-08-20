@@ -8,13 +8,11 @@ namespace Ordering.OrderParser
     internal class OrderParser: IOrderParser
     {
         private IOrderLineParser orderLineParser;
-        private IPaymentMethodParser paymentMethodParser;
         private static readonly Regex OrderLinePattern = new Regex("^([0-9]+x){1}\\W+(#[0-9]+|[A-Za-z]{1}[A-Za-z ]*){1}\\W*$", RegexOptions.Multiline);
 
-        public OrderParser(IOrderLineParser orderLineParser, IPaymentMethodParser paymentMethodParser)
+        public OrderParser(IOrderLineParser orderLineParser)
         {
             this.orderLineParser = orderLineParser;
-            this.paymentMethodParser = paymentMethodParser;
         }
 
         public IOrder Parse(IText text)
@@ -23,9 +21,8 @@ namespace Ordering.OrderParser
             AssertTextIsNotEmpty(text);
 
             var orderLinesResult = orderLineParser.Parse(text);
-            var paymentMethodResult = paymentMethodParser.Parse(text);
 
-            return new Order(new OrderId(), OrderState.Created, orderLinesResult.Value, paymentMethodResult.Value);
+            return new Order(new OrderId(), OrderState.Created, orderLinesResult.Value);
         }
 
         private void AssertTextIsNotEmpty(IText text)

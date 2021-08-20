@@ -11,17 +11,14 @@ namespace Ordering.Order
         private readonly List<IOrderItem> orderItems;
 
         public OrderState State { get; }
-        public IPaymentMethod PaymentMethod { get; }
 
-        public Order(IOrderId id, OrderState state, List<IOrderItem> orderItems, IPaymentMethod paymentMethod)
+        public Order(IOrderId id, OrderState state, List<IOrderItem> orderItems)
         {
             Assert.NotNull(id, "[Order] ids can not be null");
             this.id = id;
             State = state;
             Assert.NotNull(orderItems, "[Order] items list can not be null");
             this.orderItems = new List<IOrderItem>(orderItems);
-            Assert.NotNull(paymentMethod, "[Order] payment method can not be null");
-            this.PaymentMethod = paymentMethod;
         }
 
         public IInvoice GetInvoice()

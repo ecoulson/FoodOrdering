@@ -12,12 +12,10 @@ namespace Ordering.Tests.Order
     public class OrderTests
     {
         private Mock<IOrderId> MockOrderId;
-        private Mock<IPaymentMethod> MockPaymentMethod;
 
         public OrderTests()
         {
             MockOrderId = new Mock<IOrderId>();
-            MockPaymentMethod = new Mock<IPaymentMethod>();
         }
 
         [Fact]
@@ -26,8 +24,7 @@ namespace Ordering.Tests.Order
             var order = new Order(
                 MockOrderId.Object,
                 OrderState.WaitingForPayment,
-                new List<IOrderItem>(),
-                new Mock<IPaymentMethod>().Object
+                new List<IOrderItem>()
             );
 
             var invoice = order.GetInvoice();
@@ -45,8 +42,7 @@ namespace Ordering.Tests.Order
             var order = new Order(
                 MockOrderId.Object,
                 OrderState.WaitingForPayment,
-                new List<IOrderItem> { mockOrderItem.Object },
-                new Mock<IPaymentMethod>().Object
+                new List<IOrderItem> { mockOrderItem.Object }
             );
 
             var invoice = order.GetInvoice();
@@ -60,7 +56,7 @@ namespace Ordering.Tests.Order
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Order(MockOrderId.Object, OrderState.WaitingForPayment, null, MockPaymentMethod.Object);
+                new Order(MockOrderId.Object, OrderState.WaitingForPayment, null);
             });
         }
 
@@ -69,16 +65,7 @@ namespace Ordering.Tests.Order
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Order(null, OrderState.WaitingForPayment, new List<IOrderItem>(), MockPaymentMethod.Object);
-            });
-        }
-
-        [Fact]
-        public void WHEN_OrderIsCreatedWithNullPaymentMethod_SHOULD_ThrowException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                new Order(MockOrderId.Object, OrderState.WaitingForPayment, new List<IOrderItem>(), null);
+                new Order(null, OrderState.WaitingForPayment, new List<IOrderItem>());
             });
         }
 

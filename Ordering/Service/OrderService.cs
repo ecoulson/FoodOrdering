@@ -6,7 +6,7 @@ namespace Ordering.Service
 {
     public class OrderService: IOrderService
     {
-        private IOrderParser orderParser;
+        private readonly IOrderParser orderParser;
 
         public OrderService(IOrderParser orderParser)
         {

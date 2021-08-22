@@ -1,11 +1,11 @@
-﻿using Menu;
+﻿using Ordering.OrderParser;
 
 namespace Ordering.Order
 {
     public interface IOrderItem
     {
-        IMenuItem MenuItem { get; }
-        IQuantity Quantity { get; }
+        string MenuItemId();
+        int Quantity();
         int Cost();
     }
 }

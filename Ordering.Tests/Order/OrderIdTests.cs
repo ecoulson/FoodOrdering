@@ -12,7 +12,7 @@ namespace Ordering.Tests.Order
         {
             var id = new OrderId();
 
-            Assert.IsType<Guid>(id.Value);
+            Assert.NotEmpty(id.ToString());
         }
 
         [Fact]

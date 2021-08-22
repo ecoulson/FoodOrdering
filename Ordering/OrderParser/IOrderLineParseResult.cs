@@ -7,6 +7,6 @@ namespace Ordering.OrderParser
     {
         List<IOrderItem> Items { get; }
         bool HasExceptions();
-        IllegalOrderLineException BuildException();
+        IllegalOrderLinesException BuildException();
     }
 }

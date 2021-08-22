@@ -4,16 +4,16 @@ namespace Ordering.Order
 {
     internal class OrderId: IOrderId, IEquatable<OrderId>
     {
-        public Guid Value { get; }
+        private readonly Guid value;
 
         public OrderId()
         {
-            Value = Guid.NewGuid();
+            this.value = Guid.NewGuid();
         }
 
         public OrderId(OrderId copy) {
             Assert.NotNull(copy, "[OrderId] Can not create a copy of a null order id");
-            Value = copy.Value;
+            value = copy.value;
         }
 
         public bool Equals(OrderId other)
@@ -22,12 +22,17 @@ namespace Ordering.Order
             {
                 return false;
             }
-            return Value == other.Value;
+            return value == other.value;
         }
 
         public override int GetHashCode()
         {
-            return Value.GetHashCode();
+            return value.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return value.ToString();
         }
     }
 }

@@ -1,23 +1,47 @@
-﻿using Menu;
+﻿using System;
+using Menu;
+using Ordering.OrderParser;
 
 namespace Ordering.Order
 {
-    internal class OrderItem: IOrderItem
+    internal class OrderItem: IOrderItem, IEquatable<IOrderItem>
     {
-        public IMenuItem MenuItem { get; }
-        public IQuantity Quantity { get; }
+        private readonly IQuantity quantity;
+        private readonly ICost cost;
+        private readonly IMenuItemIdentifier menuItemIdentifier;
 
-        public OrderItem(IMenuItem menuItem, IQuantity quantity)
+        public OrderItem(IMenuItemIdentifier menuItemIdentifier, IQuantity quantity, ICost cost)
         {
-            Assert.NotNull(menuItem, "[OrderItem] Menu item can not be null");
-            MenuItem = menuItem;
+            Assert.NotNull(menuItemIdentifier, "[OrderItem] Menu item identifier can not be null");
+            this.menuItemIdentifier = menuItemIdentifier;
             Assert.NotNull(quantity, "[OrderItem] Quantity can not be null");
-            Quantity = quantity;
+            this.quantity = quantity;
+            Assert.NotNull(cost, "[OrderItem] Cost can not be null");
+            this.cost = cost;
         }
+
+        public OrderItem(IMenuItemIdentifier menuItemId, IQuantity quantity):
+            this(menuItemId, quantity, new Cost(0)) { }
 
         public int Cost()
         {
-            return MenuItem.Cost * Quantity.Value;
+            return cost.Value * quantity.Value;
+        }
+
+        public string MenuItemId()
+        {
+            return menuItemIdentifier.Value;
+        }
+
+        public int Quantity()
+        {
+            return quantity.Value;
+        }
+
+        public bool Equals(IOrderItem other)
+        {
+            return other.MenuItemId() == MenuItemId() &&
+                other.Quantity() == Quantity();
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿using Ordering.Service;
+﻿using System.Collections.Generic;
+using Ordering.Order;
+using Ordering.Service;
 
 namespace Ordering.OrderParser
 {
     public interface IOrderLineParser
     {
-        IOrderLineParseResult Parse(IText text);
+        List<IOrderItem> Parse(IText text);
     }
 }

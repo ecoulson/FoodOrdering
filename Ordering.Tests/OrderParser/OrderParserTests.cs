@@ -7,35 +7,32 @@
     using System;
     using Ordering.Order;
     using System.Collections.Generic;
-    using Payments;
 
     public class OrderParserTests
     {
-        private Mock<IOrderLineParser> MockOrderLineParser;
-        private Mock<IText> MockText;
-        private Mock<IOrderLineParseResult> MockOrderLineParserResult;
-        private OrderParser Parser;
+        private readonly Mock<IOrderLineParser> mockOrderLineParser;
+        private readonly Mock<IText> mockText;
+        private readonly OrderParser parser;
 
         public OrderParserTests()
         {
-            MockOrderLineParser = new Mock<IOrderLineParser>();
-            MockText = new Mock<IText>();
-            MockOrderLineParserResult = new Mock<IOrderLineParseResult>();
-            Parser = new OrderParser(
-                MockOrderLineParser.Object
+            mockOrderLineParser = new Mock<IOrderLineParser>();
+            mockText = new Mock<IText>();
+            parser = new OrderParser(
+                mockOrderLineParser.Object
             );
         }
 
         [Fact]
         public void WHEN_ParsingAnEmptyText_SHOULD_ThrowException()
         {
-            MockText
+            mockText
                 .Setup(text => text.IsEmpty())
                 .Returns(true);
 
             Assert.Throws<EmptyOrderException>(() =>
             {
-                Parser.Parse(MockText.Object);
+                parser.Parse(mockText.Object);
             });
         }
 
@@ -44,44 +41,35 @@
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                Parser.Parse(null);
+                parser.Parse(null);
             });
         }
 
         [Fact]
         public void WHEN_ParsingAnOrderWithOrderLines_SHOULD_ThrowAnException()
         {
-            MockOrderLineParser
+            mockOrderLineParser
                 .Setup(parser => parser.Parse(It.IsAny<IText>()))
-                .Returns(MockOrderLineParserResult.Object);
-            MockOrderLineParserResult
-                .Setup(parserResult => parserResult.HasExceptions())
-                .Returns(true);
-            MockOrderLineParserResult
-                .Setup(orderLineResult => orderLineResult.BuildException())
-                .Returns(new IllegalOrderLineException(new string[0]));
+                .Throws(new IllegalOrderLinesException(""));
 
-            Assert.Throws<IllegalOrderLineException>(() =>
+            Assert.Throws<IllegalOrderLinesException>(() =>
             {
-                Parser.Parse(MockText.Object);
+                parser.Parse(mockText.Object);
             });
             
-            MockOrderLineParser.VerifyAll();
+            mockOrderLineParser.VerifyAll();
         }
 
         [Fact]
         public void WHEN_ParsingAValidOrder_SHOULD_ReturnAnOrder()
         {
-            MockOrderLineParser
+            mockOrderLineParser
                 .Setup(parser => parser.Parse(It.IsAny<IText>()))
-                .Returns(MockOrderLineParserResult.Object);
-            MockOrderLineParserResult
-                .Setup(orderLineResult => orderLineResult.Items)
                 .Returns(new List<IOrderItem>());
 
-            var order = Parser.Parse(MockText.Object);
+            var order = parser.Parse(mockText.Object);
 
-            MockOrderLineParser.VerifyAll();
+            mockOrderLineParser.VerifyAll();
             Assert.Equal(OrderState.Created, order.State);
         }
     }

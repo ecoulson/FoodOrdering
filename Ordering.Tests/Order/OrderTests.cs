@@ -6,23 +6,22 @@ using Moq;
 namespace Ordering.Tests.Order
 {
     using Ordering.Order;
-    using Payments;
     using Xunit;
 
     public class OrderTests
     {
-        private Mock<IOrderId> MockOrderId;
+        private readonly Mock<IOrderId> mockOrderId;
 
         public OrderTests()
         {
-            MockOrderId = new Mock<IOrderId>();
+            mockOrderId = new Mock<IOrderId>();
         }
 
         [Fact]
         public void WHEN_InvoiceIsCreatedForAnOrderWithNoItems_SHOULD_ReturnAnInvoiceWithNoCostOrItems()
         {
             var order = new Order(
-                MockOrderId.Object,
+                mockOrderId.Object,
                 OrderState.WaitingForPayment,
                 new List<IOrderItem>()
             );
@@ -30,7 +29,7 @@ namespace Ordering.Tests.Order
             var invoice = order.GetInvoice();
 
             Assert.Equal(0, invoice.Total.Cost);
-            Assert.Equal(MockOrderId.Object, invoice.OrderId);
+            Assert.Equal(mockOrderId.Object, invoice.OrderId);
             Assert.Empty(invoice.Items);
         }
 
@@ -40,7 +39,7 @@ namespace Ordering.Tests.Order
             var mockOrderItem = GetMockOrderItem(2, 500);
 
             var order = new Order(
-                MockOrderId.Object,
+                mockOrderId.Object,
                 OrderState.WaitingForPayment,
                 new List<IOrderItem> { mockOrderItem.Object }
             );
@@ -56,7 +55,7 @@ namespace Ordering.Tests.Order
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Order(MockOrderId.Object, OrderState.WaitingForPayment, null);
+                new Order(mockOrderId.Object, OrderState.WaitingForPayment, null);
             });
         }
 

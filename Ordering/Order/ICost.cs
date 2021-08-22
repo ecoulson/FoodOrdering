@@ -1,8 +1,8 @@
 ﻿using System;
 namespace Ordering.Order
 {
-    public interface IOrderId
+    public interface ICost
     {
-        string ToString();
+        int Value { get; }
     }
 }

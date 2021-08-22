@@ -1,16 +1,13 @@
-﻿using System.Text.RegularExpressions;
-using Ordering.Service;
+﻿using Ordering.Service;
 
 namespace Ordering.OrderParser
 {
-    using System;
     using System.Collections.Generic;
     using Ordering.Order;
 
     internal class OrderParser: IOrderParser
     {
-        private IOrderLineParser orderLineParser;
-        private static readonly Regex OrderLinePattern = new Regex("^([0-9]+x){1}\\W+(#[0-9]+|[A-Za-z]{1}[A-Za-z ]*){1}\\W*$", RegexOptions.Multiline);
+        private readonly IOrderLineParser orderLineParser;
 
         public OrderParser(IOrderLineParser orderLineParser)
         {
@@ -22,17 +19,7 @@ namespace Ordering.OrderParser
             Assert.NotNull(text, "[OrderParser] Text to parse should not be null");
             AssertTextIsNotEmpty(text);
 
-            return new Order(new OrderId(), OrderState.Created, ParseOrderLines(text));
-        }
-
-        private List<IOrderItem> ParseOrderLines(IText text)
-        {
-            var result = orderLineParser.Parse(text);
-            if (result.HasExceptions())
-            {
-                throw result.BuildException();
-            }
-            return result.Items;
+            return new Order(new OrderId(), OrderState.Created, orderLineParser.Parse(text));
         }
 
         private void AssertTextIsNotEmpty(IText text)

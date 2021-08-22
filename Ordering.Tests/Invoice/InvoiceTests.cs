@@ -10,22 +10,22 @@ namespace Ordering.Tests.Invoice
 
     public class InvoiceTests
     {
-        private Mock<ITotal> MockTotal;
-        private Mock<IOrderId> MockOrderId;
+        private readonly Mock<ITotal> mockTotal;
+        private readonly Mock<IOrderId> mockOrderId;
 
         public InvoiceTests()
         {
-            MockTotal = new Mock<ITotal>();
-            MockOrderId = new Mock<IOrderId>();
+            mockTotal = new Mock<ITotal>();
+            mockOrderId = new Mock<IOrderId>();
         }
 
         [Fact]
         public void WHEN_CreatingAnInvoice_SHOULD_HaveExcpectedValues()
         {
             var invoice = new Invoice(
-                MockOrderId.Object,
+                mockOrderId.Object,
                 new List<IInvoiceItem>(),
-                MockTotal.Object
+                mockTotal.Object
             );
 
             Assert.NotNull(invoice.OrderId);
@@ -38,7 +38,7 @@ namespace Ordering.Tests.Invoice
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Invoice(null, new List<IInvoiceItem>(), MockTotal.Object);
+                new Invoice(null, new List<IInvoiceItem>(), mockTotal.Object);
             });
         }
 
@@ -47,7 +47,7 @@ namespace Ordering.Tests.Invoice
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Invoice(MockOrderId.Object, null, MockTotal.Object);
+                new Invoice(mockOrderId.Object, null, mockTotal.Object);
             });
         }
 
@@ -56,7 +56,7 @@ namespace Ordering.Tests.Invoice
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Invoice(MockOrderId.Object, new List<IInvoiceItem>(), null);
+                new Invoice(mockOrderId.Object, new List<IInvoiceItem>(), null);
             });
         }
     }

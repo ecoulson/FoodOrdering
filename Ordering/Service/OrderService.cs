@@ -15,9 +15,9 @@ namespace Ordering.Service
 
         public IOrder CreateOrder(ICreateOrderDto createOrderDto)
         {
-            IOrder order = orderParser.Parse(createOrderDto.Content);
+            // parse order
             // save order
-            return order;
+            throw new NotImplementedException();
         }
 
         public void DeleteOrder(IDeleteOrderDto deleteOrderDto)

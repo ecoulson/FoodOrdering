@@ -14,6 +14,7 @@ namespace Ordering.OrderParser
 
         public void Validate(List<string> extractedLines)
         {
+            Assert.NotNull(extractedLines, "[OrderLineValidator::Validate] Extracted lines can not be null");
             AssertLinesWereExtracted(extractedLines);
             extractedLines.ForEach(ValidateLine);
             HandleIllegalLines();
@@ -44,7 +45,7 @@ namespace Ordering.OrderParser
         {
             if (IllegalLinesExist())
             {
-                throw new IllegalOrderLinesException("");
+                throw new IllegalOrderLinesException(string.Join("\n\t", illegalLines));
             }
         }
 

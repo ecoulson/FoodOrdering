@@ -1,5 +1,6 @@
 ﻿namespace Ordering.Tests.OrderParser
 {
+    using System;
     using Ordering.OrderParser;
     using Xunit;
 
@@ -28,6 +29,15 @@
 
             Assert.Equal(22, orderItem.Quantity());
             Assert.Equal("Chicken Tenders", orderItem.MenuItemId());
+        }
+
+        [Fact]
+        public void WHEN_MatchingANullOrderLine_SHOULD_ThrowException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                matcher.Match(null);
+            });
         }
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Ordering.OrderParser
 {
-    using System.Collections.Generic;
     using Ordering.Order;
 
     internal class OrderParser: IOrderParser

@@ -11,6 +11,7 @@ namespace Ordering.OrderParser
 
         public IOrderItem Match(string line)
         {
+            Assert.NotNull(line, "[OrderLineMatcher::Match] Can not match a null line");
             AssertLineMatchesPattern(line);
 
             var match = Constants.OrderLinePattern.Match(line);
@@ -36,8 +37,7 @@ namespace Ordering.OrderParser
 
         private IQuantity ParseQuantity(Match match)
         {
-            var quantityGroupValue = match.Groups[QuantityGroup].Value;
-            var rawQuantity = quantityGroupValue.Replace("x", "");
+            var rawQuantity = match.Groups[QuantityGroup].Value;
             return new Quantity(int.Parse(rawQuantity));
         }
     }

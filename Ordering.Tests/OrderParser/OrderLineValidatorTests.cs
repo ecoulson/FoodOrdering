@@ -1,5 +1,6 @@
 ﻿namespace Ordering.Tests.OrderParser
 {
+    using System;
     using System.Collections.Generic;
     using Ordering.OrderParser;
     using Xunit;
@@ -51,6 +52,15 @@
             Assert.Throws<IllegalOrderLinesException>(() =>
             {
                 validator.Validate(new List<string>(lines));
+            });
+        }
+
+        [Fact]
+        public void WHEN_ValidatingANullListOfLines_SHOULD_ThrowException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                validator.Validate(null);
             });
         }
     }

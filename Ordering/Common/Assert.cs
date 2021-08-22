@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Ordering
 {
     internal class Assert

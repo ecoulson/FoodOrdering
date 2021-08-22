@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using Menu;
 using Ordering.Order;
 using Ordering.Service;
 
@@ -10,11 +8,19 @@ namespace Ordering.OrderParser
     {
         private readonly IOrderLineExtractor orderLineExtractor;
         private readonly IOrderLineValidator orderLinesValidator;
+        private readonly IOrderLineMatcher orderLineMatcher;
 
-        public OrderLineParser(IOrderLineExtractor orderLineExtractor, IOrderLineValidator orderLinesValidator)
-        {
+        public OrderLineParser(
+            IOrderLineExtractor orderLineExtractor,
+            IOrderLineValidator orderLinesValidator,
+            IOrderLineMatcher orderLineMatcher
+        ) {
+            Assert.NotNull(orderLineExtractor, "[OrderLineParser] Line extractor can not be null");
             this.orderLineExtractor = orderLineExtractor;
+            Assert.NotNull(orderLinesValidator, "[OrderLineParser] Lines validator can not be null");
             this.orderLinesValidator = orderLinesValidator;
+            Assert.NotNull(orderLineMatcher, "[OrderLineParser] Line matcher can not be null");
+            this.orderLineMatcher = orderLineMatcher;
         }
 
         public List<IOrderItem> Parse(IText text)
@@ -29,23 +35,7 @@ namespace Ordering.OrderParser
 
         private IOrderItem ParseExtractedLine(string line)
         {
-            // Todo: Extract Order Line Pattern Match to its own class with the ability to get the amount group and the identifier group
-            var parsedLine = Constants.OrderLinePattern.Match(line);
-            var quantity = ParseQuantity(parsedLine);
-            var menuItemId = ParseMenuItemIdentifier(parsedLine);
-            return new OrderItem(menuItemId, quantity);
-        }
-
-        private IQuantity ParseQuantity(Match parsedLine)
-        {
-            var amount = parsedLine.Groups[1].Value.Replace("x", "");
-            return new Quantity(int.Parse(amount));
-        }
-
-        private IMenuItemIdentifier ParseMenuItemIdentifier(Match parsedLine)
-        {
-            var id = parsedLine.Groups[2].Value;
-            return new MenuItemIdentifier(id);
+            return orderLineMatcher.Match(line);
         }
     }
 }

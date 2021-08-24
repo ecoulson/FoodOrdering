@@ -5,8 +5,8 @@ namespace Ordering.Service
 {
     public interface ICreateOrderDto
     {
-        IPhoneNumber PhoneNumber { get; set; }
+        string PhoneNumber { get; set; }
         DateTime RecievedDateTime { get; set; }
-        IText Content { get; set; }
+        string Content { get; set; }
     }
 }

@@ -8,12 +8,13 @@ namespace Ordering.Order
 
         public OrderId()
         {
-            this.value = Guid.NewGuid();
+            value = Guid.NewGuid();
         }
 
-        public OrderId(OrderId copy) {
-            Assert.NotNull(copy, "[OrderId] Can not create a copy of a null order id");
-            value = copy.value;
+        public OrderId(string id)
+        {
+            Assert.NotNull(id, "[OrderId] Can not create a copy of a null string");
+            value = new Guid(id);
         }
 
         public bool Equals(OrderId other)

@@ -21,10 +21,12 @@
     <None Remove="Invoice\" />
     <None Remove="Order\" />
     <None Remove="OrderParser\" />
+    <None Remove="Service\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Invoice\" />
     <Folder Include="Order\" />
     <Folder Include="OrderParser\" />
+    <Folder Include="Service\" />
   </ItemGroup>
 </Project>

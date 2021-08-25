@@ -7,7 +7,7 @@ namespace Ordering.Service
     {
         IOrder CreateOrder(ICreateOrderDto createOrderDto);
         IOrder GetOrder(IGetOrderDto getOrderDto);
-        IOrder EditOrder(IOrderId orderId, IOrder orderToUpdate);
+        IOrder EditOrder(IUpdateOrderDto updateOrderDto);
         void DeleteOrder(IDeleteOrderDto deleteOrderDto);
     }
 }

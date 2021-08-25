@@ -98,5 +98,56 @@
             Assert.NotNull(order);
             mockOrderRepository.VerifyAll();
         }
+
+        [Fact]
+        public void WHEN_DeletingAnOrderWithNullDto_SHOULD_ThrowAnException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                service.DeleteOrder(null);
+            });
+        }
+
+        [Fact]
+        public void WHEN_DeleteingAnOrder_SHOULD_DeleteTheOrder()
+        {
+            var mockDeleteOrderDto = new Mock<IDeleteOrderDto>();
+            mockDeleteOrderDto
+                .Setup(dto => dto.OrderId)
+                .Returns(DummyOrderId);
+            mockOrderRepository
+                .Setup(repo => repo.Delete(It.IsAny<IOrder>()))
+                .Returns(true);
+
+            service.DeleteOrder(mockDeleteOrderDto.Object);
+
+            mockOrderRepository.VerifyAll();
+        }
+
+        [Fact]
+        public void WHEN_UpdatingAnOrderWithNullDTO_SHOULD_ThrowException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                service.EditOrder(null);
+            });
+        }
+
+        [Fact]
+        public void WHEN_UpdatingAnOrder_SHOULD_UpdateTheOrder()
+        {
+            var mockUpdateOrderDto = new Mock<IUpdateOrderDto>();
+            mockUpdateOrderDto
+                .Setup(dto => dto.Order)
+                .Returns(mockOrder.Object);
+            mockOrderRepository
+                .Setup(repo => repo.Update(It.IsAny<IOrder>()))
+                .Returns(mockOrder.Object);
+
+            var updatedOrder = service.EditOrder(mockUpdateOrderDto.Object);
+
+            Assert.NotNull(updatedOrder);
+            mockOrderRepository.VerifyAll();
+        }
     }
 }

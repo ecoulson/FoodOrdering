@@ -27,17 +27,15 @@ namespace Ordering.Service
 
         public void DeleteOrder(IDeleteOrderDto deleteOrderDto)
         {
-            // load order
-            // delete order
-            throw new NotImplementedException();
+            Assert.NotNull(deleteOrderDto, "[OrderService::DeleteOrder] dto can not be null");
+            var order = orderRepository.Read(new OrderId(deleteOrderDto.OrderId));
+            orderRepository.Delete(order);
         }
 
-        public IOrder EditOrder(IOrderId orderId, IOrder orderToUpdate)
+        public IOrder EditOrder(IUpdateOrderDto updateOrderDto)
         {
-            // get order by id
-            // run algorithm to update order
-            // update order in repo
-            throw new NotImplementedException();
+            Assert.NotNull(updateOrderDto, "[OrderService::EditOrder] dto can not be null");
+            return orderRepository.Update(updateOrderDto.Order);
         }
 
         public IOrder GetOrder(IGetOrderDto getOrderDto)

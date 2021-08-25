@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments", "Payments\Paymen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifications", "Notifications\Notifications.csproj", "{E64D43D6-7F09-449D-9F13-29E33320A5D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDatabase", "FileDatabase\FileDatabase.csproj", "{6A777F2C-199D-46C8-9981-AD73162D7E35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDatabase.Tests", "FileDatabase.Tests\FileDatabase.Tests.csproj", "{B4F91085-014E-43BF-B058-76E5B3B79CCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{E64D43D6-7F09-449D-9F13-29E33320A5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E64D43D6-7F09-449D-9F13-29E33320A5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E64D43D6-7F09-449D-9F13-29E33320A5D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A777F2C-199D-46C8-9981-AD73162D7E35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A777F2C-199D-46C8-9981-AD73162D7E35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A777F2C-199D-46C8-9981-AD73162D7E35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A777F2C-199D-46C8-9981-AD73162D7E35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4F91085-014E-43BF-B058-76E5B3B79CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4F91085-014E-43BF-B058-76E5B3B79CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4F91085-014E-43BF-B058-76E5B3B79CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4F91085-014E-43BF-B058-76E5B3B79CCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

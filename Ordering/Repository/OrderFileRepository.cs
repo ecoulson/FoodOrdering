@@ -3,7 +3,7 @@ using Ordering.Order;
 
 namespace Ordering.Repository
 {
-    public class OrderFileRepository: IOrderRepository
+    internal class OrderFileRepository: IOrderRepository
     {
         public OrderFileRepository()
         {

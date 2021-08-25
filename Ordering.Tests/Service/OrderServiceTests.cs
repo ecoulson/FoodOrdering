@@ -116,8 +116,7 @@
                 .Setup(dto => dto.OrderId)
                 .Returns(DummyOrderId);
             mockOrderRepository
-                .Setup(repo => repo.Delete(It.IsAny<IOrder>()))
-                .Returns(true);
+                .Setup(repo => repo.Delete(It.IsAny<IOrder>()));
 
             service.DeleteOrder(mockDeleteOrderDto.Object);
 

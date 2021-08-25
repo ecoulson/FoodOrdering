@@ -10,26 +10,20 @@ namespace Ordering.Tests.Order
 
     public class OrderTests
     {
-        private readonly Mock<IOrderId> mockOrderId;
-
-        public OrderTests()
-        {
-            mockOrderId = new Mock<IOrderId>();
-        }
+        private static readonly string DummyOrderId = "a2e02668-5dca-477f-81b4-f0ca2b88042d";
 
         [Fact]
         public void WHEN_InvoiceIsCreatedForAnOrderWithNoItems_SHOULD_ReturnAnInvoiceWithNoCostOrItems()
         {
             var order = new Order(
-                mockOrderId.Object,
                 OrderState.WaitingForPayment,
                 new List<IOrderItem>()
             );
 
+            order.SetId(new OrderId(DummyOrderId));
             var invoice = order.GetInvoice();
 
             Assert.Equal(0, invoice.Total.Cost);
-            Assert.Equal(mockOrderId.Object, invoice.OrderId);
             Assert.Empty(invoice.Items);
         }
 
@@ -39,11 +33,11 @@ namespace Ordering.Tests.Order
             var mockOrderItem = GetMockOrderItem(2, 500);
 
             var order = new Order(
-                mockOrderId.Object,
                 OrderState.WaitingForPayment,
                 new List<IOrderItem> { mockOrderItem.Object }
             );
 
+            order.SetId(new OrderId(DummyOrderId));
             var invoice = order.GetInvoice();
 
             Assert.Equal(1000, invoice.Total.Cost);
@@ -55,7 +49,7 @@ namespace Ordering.Tests.Order
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Order(mockOrderId.Object, OrderState.WaitingForPayment, null);
+                new Order(OrderState.WaitingForPayment, null);
             });
         }
 
@@ -75,6 +69,16 @@ namespace Ordering.Tests.Order
                 .Setup(orderItem => orderItem.Cost())
                 .Returns(amount * cost);
             return mockOrderItem;
+        }
+
+        [Fact]
+        public void WHEN_SettingOrderId_SHOULD_SetId()
+        {
+            var order = new Order(OrderState.WaitingForPayment, new List<IOrderItem>());
+
+            order.SetId(new OrderId(DummyOrderId));
+
+            Assert.Equal(DummyOrderId, order.Id());
         }
     }
 }

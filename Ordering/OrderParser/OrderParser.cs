@@ -18,7 +18,7 @@ namespace Ordering.OrderParser
             Assert.NotNull(text, "[OrderParser] Text to parse should not be null");
             AssertTextIsNotEmpty(text);
 
-            return new Order(new OrderId(), OrderState.Created, orderLineParser.Parse(text));
+            return new Order(OrderState.Created, orderLineParser.Parse(text));
         }
 
         private void AssertTextIsNotEmpty(IText text)

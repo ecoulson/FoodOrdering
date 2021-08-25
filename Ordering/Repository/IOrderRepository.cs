@@ -7,6 +7,6 @@ namespace Ordering.Repository
         IOrder Create(IOrder order);
         IOrder Read(IOrderId orderId);
         IOrder Update(IOrder order);
-        bool Delete(IOrder order);
+        void Delete(IOrder order);
     }
 }

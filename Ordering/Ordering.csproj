@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Menu\Menu.csproj" />
     <ProjectReference Include="..\Payments\Payments.csproj" />
+    <ProjectReference Include="..\FileDatabase\FileDatabase.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Service\" />

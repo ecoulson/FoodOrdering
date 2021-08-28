@@ -1,5 +1,6 @@
 ﻿using System;
 using FileDatabase.API;
+using FileDatabase.Document;
 using Ordering.Order;
 
 namespace Ordering.Repository
@@ -28,13 +29,14 @@ namespace Ordering.Repository
         public void Delete(IOrder order)
         {
             Assert.NotNull(order, "[OrderFileRepository::Delete] order can not be null");
-            orderDatabase.DeleteDocument(orderMapper.ToModel(order));
+            var model = orderMapper.ToModel(order);
+            orderDatabase.DeleteDocument(new DocumentId(order.Id()));
         }
 
         public IOrder Read(IOrderId orderId)
         {
             Assert.NotNull(orderId, "[OrderFileRepository::Read] order id can not be null");
-            var document = orderDatabase.ReadDocument(orderId.ToString());
+            var document = orderDatabase.ReadDocument(new DocumentId(orderId.ToString()));
             return GetOrderFromDocument(document);
         }
 
@@ -50,7 +52,7 @@ namespace Ordering.Repository
         {
             Assert.NotNull(order, "[OrderFileRepository::Update] order can not be null");
             var document = orderDatabase.UpdateDocument(
-                order.Id(),
+                new DocumentId(order.Id()),
                 orderMapper.ToModel(order)
             );
             return GetOrderFromDocument(document);

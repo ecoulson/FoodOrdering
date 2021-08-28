@@ -1,7 +1,8 @@
 ﻿using System;
-namespace FileDatabase.API
+namespace FileDatabase.Document
 {
     public interface IDocumentId
     {
+        string Value { get; }
     }
 }

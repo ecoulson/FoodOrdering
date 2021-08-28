@@ -1,5 +1,5 @@
 ﻿using System;
-namespace FileDatabase.API
+namespace FileDatabase.Document
 {
     public interface IDocument<T>
     {

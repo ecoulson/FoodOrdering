@@ -2,6 +2,7 @@
 {
     using System;
     using FileDatabase.API;
+    using FileDatabase.Document;
     using Moq;
     using Ordering.Order;
     using Ordering.Repository;
@@ -101,7 +102,7 @@
                 .Setup(mapper => mapper.ToModel(It.IsAny<IOrder>()))
                 .Returns(mockOrderModel.Object);
             mockDatabase
-                .Setup(database => database.DeleteDocument(It.IsAny<IOrderModel>()));
+                .Setup(database => database.DeleteDocument(It.IsAny<IDocumentId>()));
 
             orderRepository.Delete(mockOrder.Object);
 
@@ -125,7 +126,7 @@
                 .Setup(id => id.ToString())
                 .Returns(DummyOrderId);
             mockDatabase
-                .Setup(database => database.ReadDocument(It.IsAny<string>()))
+                .Setup(database => database.ReadDocument(It.IsAny<IDocumentId>()))
                 .Returns(mockOrderDocument.Object);
             mockOrderMapper
                 .Setup(mapper => mapper.ToEntity(It.IsAny<IOrderModel>()))
@@ -154,7 +155,7 @@
         {
             mockDatabase
                 .Setup(database => database.UpdateDocument(
-                    It.IsAny<string>(),
+                    It.IsAny<IDocumentId>(),
                     It.IsAny<IOrderModel>()
                 ))
                 .Returns(mockOrderDocument.Object);

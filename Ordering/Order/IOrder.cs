@@ -1,4 +1,5 @@
-﻿using Ordering.Invoice;
+﻿using Common.Id;
+using Ordering.Invoice;
 using Payments;
 
 namespace Ordering.Order
@@ -6,8 +7,7 @@ namespace Ordering.Order
     public interface IOrder
     {
         OrderState State { get; }
-        void SetId(IOrderId id);
-        string Id();
+        IId Id { get; set; }
         IInvoice GetInvoice();
     }
 }

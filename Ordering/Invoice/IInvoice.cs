@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Ordering.Order;
+using Common.Id;
 
 namespace Ordering.Invoice
 {
     public interface IInvoice
     {
-        IOrderId OrderId { get; }
+        IId OrderId { get; }
         List<IInvoiceItem> Items { get; }
         ITotal Total { get; }
     }

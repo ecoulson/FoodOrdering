@@ -1,5 +1,4 @@
-﻿using System;
-using Common.Id;
+﻿using Common.Id;
 
 namespace FileDatabase.Document
 {

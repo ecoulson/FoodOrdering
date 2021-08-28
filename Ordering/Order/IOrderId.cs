@@ -1,4 +1,5 @@
-﻿using Common.Id;
+﻿using System;
+using Common.Id;
 
 namespace Ordering.Order
 {

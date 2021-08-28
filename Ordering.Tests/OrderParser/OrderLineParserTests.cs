@@ -108,8 +108,6 @@
             {
                 parser.Parse(mockText.Object);
             });
-
-            mockOrderLineExtractor.VerifyAll();
         }
 
         [Fact]
@@ -126,9 +124,6 @@
             {
                 parser.Parse(mockText.Object);
             });
-
-            mockOrderLineExtractor.VerifyAll();
-            mockOrderLinesValidator.VerifyAll();
         }
 
         [Fact]
@@ -145,9 +140,6 @@
             {
                 parser.Parse(mockText.Object);
             });
-
-            mockOrderLineExtractor.VerifyAll();
-            mockOrderLinesValidator.VerifyAll();
         }
     }
 }

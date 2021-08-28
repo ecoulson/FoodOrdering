@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Common.Id;
 using Ordering.Order;
 
 namespace Ordering.Invoice
 {
     internal class Invoice: IInvoice
     {
-        public IOrderId OrderId { get; }
+        public IId OrderId { get; }
         public List<IInvoiceItem> Items { get; }
         public ITotal Total { get; }
 

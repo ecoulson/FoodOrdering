@@ -1,38 +1,17 @@
 ﻿using System;
+using Common.Id;
 
 namespace Ordering.Order
 {
-    internal class OrderId: IOrderId, IEquatable<OrderId>
+    internal class OrderId: Id, IOrderId
     {
-        private readonly Guid value;
-
-        public string Value {
-            get => value.ToString();
+        public OrderId(): base(Guid.NewGuid().ToString())
+        {
         }
 
-        public OrderId()
+        public OrderId(string id) : base(id)
         {
-            value = Guid.NewGuid();
-        }
-
-        public OrderId(string id)
-        {
-            Assert.NotNull(id, "[OrderId] Can not create a copy of a null string");
-            value = new Guid(id);
-        }
-
-        public bool Equals(OrderId other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-            return value == other.value;
-        }
-
-        public override int GetHashCode()
-        {
-            return value.GetHashCode();
+            Guid.Parse(id);
         }
     }
 }

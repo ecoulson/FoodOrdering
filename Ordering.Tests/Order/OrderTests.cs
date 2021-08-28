@@ -20,7 +20,7 @@ namespace Ordering.Tests.Order
                 new List<IOrderItem>()
             );
 
-            order.SetId(new OrderId(DummyOrderId));
+            order.Id = new OrderId(DummyOrderId);
             var invoice = order.GetInvoice();
 
             Assert.Equal(0, invoice.Total.Cost);
@@ -37,7 +37,7 @@ namespace Ordering.Tests.Order
                 new List<IOrderItem> { mockOrderItem.Object }
             );
 
-            order.SetId(new OrderId(DummyOrderId));
+            order.Id = new OrderId(DummyOrderId);
             var invoice = order.GetInvoice();
 
             Assert.Equal(1000, invoice.Total.Cost);
@@ -76,9 +76,9 @@ namespace Ordering.Tests.Order
         {
             var order = new Order(OrderState.WaitingForPayment, new List<IOrderItem>());
 
-            order.SetId(new OrderId(DummyOrderId));
+            order.Id = new OrderId(DummyOrderId);
 
-            Assert.Equal(DummyOrderId, order.Id());
+            Assert.Equal(DummyOrderId, order.Id.Value);
         }
     }
 }

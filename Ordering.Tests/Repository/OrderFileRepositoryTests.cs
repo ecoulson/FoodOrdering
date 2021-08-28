@@ -1,6 +1,7 @@
 ﻿namespace Ordering.Tests.Repository
 {
     using System;
+    using Common.Id;
     using FileDatabase.API;
     using FileDatabase.Document;
     using Moq;
@@ -14,6 +15,7 @@
 
         private readonly Mock<IFileDatabase<IOrderModel>> mockDatabase;
         private readonly Mock<IOrder> mockOrder;
+        private readonly Mock<IOrderId> mockOrderId;
         private readonly Mock<IOrderModel> mockOrderModel;
         private readonly Mock<IDocument<IOrderModel>> mockOrderDocument;
         private readonly Mock<IOrderMapper> mockOrderMapper;
@@ -26,6 +28,7 @@
             mockOrderDocument = new Mock<IDocument<IOrderModel>>();
             mockOrderMapper = new Mock<IOrderMapper>();
             mockOrderModel = new Mock<IOrderModel>();
+            mockOrderId = new Mock<IOrderId>();
             orderRepository = new OrderFileRepository(mockDatabase.Object, mockOrderMapper.Object);
         }
 
@@ -59,11 +62,12 @@
         [Fact]
         public void WHEN_CreatingAnOrder_SHOULD_ReturnAnOrderWithNewId()
         {
-            mockOrder
-                .Setup(order => order.SetId(new OrderId(DummyOrderId)));
-            mockOrder
-                .Setup(order => order.Id())
+            mockOrderId
+                .Setup(order => order.Value)
                 .Returns(DummyOrderId);
+            mockOrder
+                .Setup(order => order.Id)
+                .Returns(mockOrderId.Object);
             mockDatabase
                 .Setup(database => database.CreateDocument(It.IsAny<IOrderModel>()))
                 .Returns(mockOrderDocument.Object);
@@ -79,8 +83,7 @@
 
             var order = orderRepository.Create(mockOrder.Object);
 
-            Assert.Equal(DummyOrderId, order.Id());
-            mockDatabase.VerifyAll();
+            Assert.Equal(DummyOrderId, order.Id.Value);
         }
 
         [Fact]
@@ -95,9 +98,12 @@
         [Fact]
         public void WHEN_DeletingAnOrder_SHOULD_ThrowAnException()
         {
-            mockOrder
-                .Setup(order => order.Id())
+            mockOrderId
+                .Setup(id => id.Value)
                 .Returns(DummyOrderId);
+            mockOrder
+                .Setup(order => order.Id)
+                .Returns(mockOrderId.Object);
             mockOrderMapper
                 .Setup(mapper => mapper.ToModel(It.IsAny<IOrder>()))
                 .Returns(mockOrderModel.Object);
@@ -105,8 +111,6 @@
                 .Setup(database => database.DeleteDocument(It.IsAny<IDocumentId>()));
 
             orderRepository.Delete(mockOrder.Object);
-
-            mockDatabase.VerifyAll();
         }
 
         [Fact]
@@ -121,7 +125,6 @@
         [Fact]
         public void WHEN_GettingAnOrder_SHOULD_ReturnTheOrder()
         {
-            var mockOrderId = new Mock<IOrderId>();
             mockOrderId
                 .Setup(id => id.Value)
                 .Returns(DummyOrderId);
@@ -138,7 +141,6 @@
             var order = orderRepository.Read(mockOrderId.Object);
 
             Assert.NotNull(order);
-            mockDatabase.VerifyAll();
         }
 
         [Fact]
@@ -153,6 +155,12 @@
         [Fact]
         public void WHEN_UpdatingAnOrder_SHOULD_ReturnUpdatedOrder()
         {
+            mockOrderId
+                .Setup(id => id.Value)
+                .Returns(DummyOrderId);
+            mockOrder
+                .Setup(order => order.Id)
+                .Returns(mockOrderId.Object);
             mockDatabase
                 .Setup(database => database.UpdateDocument(
                     It.IsAny<IDocumentId>(),
@@ -172,7 +180,6 @@
             var updatedOrder = orderRepository.Update(mockOrder.Object);
 
             Assert.NotNull(updatedOrder);
-            mockDatabase.VerifyAll();
         }
     }
 }

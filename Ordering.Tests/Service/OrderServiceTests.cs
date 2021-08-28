@@ -60,8 +60,6 @@
             var order = service.CreateOrder(mockCreateOrderDto.Object);
 
             Assert.NotNull(order);
-            mockOrderParser.VerifyAll();
-            mockOrderRepository.VerifyAll();
         }
 
         [Fact]
@@ -96,7 +94,6 @@
             var order = service.GetOrder(mockGetOrderDto.Object);
 
             Assert.NotNull(order);
-            mockOrderRepository.VerifyAll();
         }
 
         [Fact]
@@ -119,8 +116,6 @@
                 .Setup(repo => repo.Delete(It.IsAny<IOrder>()));
 
             service.DeleteOrder(mockDeleteOrderDto.Object);
-
-            mockOrderRepository.VerifyAll();
         }
 
         [Fact]
@@ -146,7 +141,6 @@
             var updatedOrder = service.EditOrder(mockUpdateOrderDto.Object);
 
             Assert.NotNull(updatedOrder);
-            mockOrderRepository.VerifyAll();
         }
     }
 }

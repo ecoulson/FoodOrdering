@@ -30,20 +30,20 @@ namespace Ordering.Repository
         {
             Assert.NotNull(order, "[OrderFileRepository::Delete] order can not be null");
             var model = orderMapper.ToModel(order);
-            orderDatabase.DeleteDocument(new DocumentId(order.Id()));
+            orderDatabase.DeleteDocument(new DocumentId(order.Id));
         }
 
         public IOrder Read(IOrderId orderId)
         {
             Assert.NotNull(orderId, "[OrderFileRepository::Read] order id can not be null");
-            var document = orderDatabase.ReadDocument(new DocumentId(orderId.Value));
+            var document = orderDatabase.ReadDocument(new DocumentId(orderId));
             return GetOrderFromDocument(document);
         }
 
         private IOrder GetOrderFromDocument(IDocument<IOrderModel> document)
         {
             var order = orderMapper.ToEntity(document.Model);
-            order.SetId(new OrderId(document.Id()));
+            order.Id = new OrderId(document.Id());
             return order;
         }
 
@@ -52,7 +52,7 @@ namespace Ordering.Repository
         {
             Assert.NotNull(order, "[OrderFileRepository::Update] order can not be null");
             var document = orderDatabase.UpdateDocument(
-                new DocumentId(order.Id()),
+                new DocumentId(order.Id),
                 orderMapper.ToModel(order)
             );
             return GetOrderFromDocument(document);

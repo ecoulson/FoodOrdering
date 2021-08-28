@@ -5,6 +5,6 @@ namespace FileDatabase.Document
 {
     public interface IDocumentUpdater<T>
     {
-        IDocument<T> Update(IDatabaseName name, IDocumentId id, T model);
+        IDocument<T> Update(IDatabaseName name, DocumentId id, T model);
     }
 }

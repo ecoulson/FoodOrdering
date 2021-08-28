@@ -56,8 +56,6 @@
             {
                 parser.Parse(mockText.Object);
             });
-            
-            mockOrderLineParser.VerifyAll();
         }
 
         [Fact]
@@ -69,7 +67,6 @@
 
             var order = parser.Parse(mockText.Object);
 
-            mockOrderLineParser.VerifyAll();
             Assert.Equal(OrderState.Created, order.State);
         }
     }

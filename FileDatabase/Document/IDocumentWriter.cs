@@ -5,6 +5,6 @@ namespace FileDatabase.Document
 {
     public interface IDocumentWriter<T>
     {
-        IDocument<T> Write(IDatabaseName name, IDocumentId id, T model);
+        IDocument<T> Write(IDatabaseName name, DocumentId id, T model);
     }
 }

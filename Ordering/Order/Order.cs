@@ -2,8 +2,9 @@
 
 namespace Ordering.Order
 {
+    using System;
+    using Common.Id;
     using Ordering.Invoice;
-    using Payments;
 
     internal class Order: IOrder
     {
@@ -11,6 +12,19 @@ namespace Ordering.Order
         private readonly List<IOrderItem> orderItems;
 
         public OrderState State { get; }
+        public IId Id {
+            get => id;
+            set {
+                if (value is IOrderId)
+                {
+                    id = (IOrderId)value;
+                }
+                else
+                {
+                    throw new Exception("");
+                }
+            }
+        }
 
         public Order(OrderState state, List<IOrderItem> orderItems): this(
             new OrderId(),
@@ -49,16 +63,6 @@ namespace Ordering.Order
             var total = Total.Zero();
             orderItems.ForEach(total.AddToTotal);
             return total;
-        }
-
-        public void SetId(IOrderId id)
-        {
-            this.id = id;
-        }
-
-        public string Id()
-        {
-            return id.Value;
         }
     }
 }

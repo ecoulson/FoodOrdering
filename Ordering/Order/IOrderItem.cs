@@ -4,8 +4,8 @@ namespace Ordering.Order
 {
     public interface IOrderItem
     {
-        string MenuItemId();
-        int Quantity();
-        int Cost();
+        string MenuItemId { get; }
+        int Quantity { get; }
+        int Cost { get; }
     }
 }

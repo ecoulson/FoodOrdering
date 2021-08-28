@@ -27,8 +27,8 @@
         {
             var orderItem = matcher.Match("22x Chicken Tenders");
 
-            Assert.Equal(22, orderItem.Quantity());
-            Assert.Equal("Chicken Tenders", orderItem.MenuItemId());
+            Assert.Equal(22, orderItem.Quantity);
+            Assert.Equal("Chicken Tenders", orderItem.MenuItemId);
         }
 
         [Fact]

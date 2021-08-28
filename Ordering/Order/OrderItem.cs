@@ -23,25 +23,25 @@ namespace Ordering.Order
         public OrderItem(IMenuItemIdentifier menuItemId, IQuantity quantity):
             this(menuItemId, quantity, new Cost(0)) { }
 
-        public int Cost()
+        public int Cost
         {
-            return cost.Value * quantity.Value;
+            get => cost.Value * quantity.Value;
         }
 
-        public string MenuItemId()
+        public string MenuItemId
         {
-            return menuItemIdentifier.Value;
+            get => menuItemIdentifier.Value;
         }
 
-        public int Quantity()
+        public int Quantity
         {
-            return quantity.Value;
+            get => quantity.Value;
         }
 
         public bool Equals(IOrderItem other)
         {
-            return other.MenuItemId() == MenuItemId() &&
-                other.Quantity() == Quantity();
+            return other.MenuItemId == MenuItemId &&
+                other.Quantity == Quantity;
         }
     }
 }

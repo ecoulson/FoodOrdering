@@ -66,7 +66,7 @@ namespace Ordering.Tests.Order
         {
             var mockOrderItem = new Mock<IOrderItem>();
             mockOrderItem
-                .Setup(orderItem => orderItem.Cost())
+                .Setup(orderItem => orderItem.Cost)
                 .Returns(amount * cost);
             return mockOrderItem;
         }

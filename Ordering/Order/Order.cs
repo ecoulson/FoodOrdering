@@ -58,7 +58,7 @@ namespace Ordering.Order
 
         public string Id()
         {
-            return id.ToString();
+            return id.Value;
         }
     }
 }

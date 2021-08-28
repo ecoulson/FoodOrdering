@@ -21,14 +21,14 @@ namespace Ordering.Invoice
 
         public static Total FromOrderItem(IOrderItem orderItem)
         {
-            return new Total(orderItem.Cost());
+            return new Total(orderItem.Cost);
         }
 
         public void AddToTotal(IOrderItem orderItem)
         {
             Assert.NotNull(orderItem, "[Total::AddToTotal] Can not add a null item to the total");
 
-            cost += orderItem.Cost();
+            cost += orderItem.Cost;
 
             Assert.Positive(cost, "[Total::AddToTotal] Should not have a negative cost after adding an order item to the total");
         }

@@ -123,7 +123,7 @@
         {
             var mockOrderId = new Mock<IOrderId>();
             mockOrderId
-                .Setup(id => id.ToString())
+                .Setup(id => id.Value)
                 .Returns(DummyOrderId);
             mockDatabase
                 .Setup(database => database.ReadDocument(It.IsAny<IDocumentId>()))

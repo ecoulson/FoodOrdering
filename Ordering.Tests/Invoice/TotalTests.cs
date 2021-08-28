@@ -68,7 +68,7 @@ namespace Ordering.Tests.Invoice
         private Mock<IOrderItem> getMockOrderItem(int amount, int cost)
         {
             var mockOrderItem = new Mock<IOrderItem>();
-            mockOrderItem.Setup(orderItem => orderItem.Cost()).Returns(amount * cost);
+            mockOrderItem.Setup(orderItem => orderItem.Cost).Returns(amount * cost);
             return mockOrderItem;
         }
     }

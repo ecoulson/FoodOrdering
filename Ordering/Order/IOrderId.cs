@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Common.Id;
+
 namespace Ordering.Order
 {
-    public interface IOrderId
+    public interface IOrderId: IId
     {
-        string ToString();
     }
 }

@@ -6,6 +6,10 @@ namespace Ordering.Order
     {
         private readonly Guid value;
 
+        public string Value {
+            get => value.ToString();
+        }
+
         public OrderId()
         {
             value = Guid.NewGuid();
@@ -29,11 +33,6 @@ namespace Ordering.Order
         public override int GetHashCode()
         {
             return value.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return value.ToString();
         }
     }
 }

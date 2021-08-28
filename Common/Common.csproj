@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Id\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Id\" />
+  </ItemGroup>
 </Project>

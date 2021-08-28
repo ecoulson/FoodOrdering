@@ -67,7 +67,7 @@ namespace Ordering.Tests.Order
 
             var item = new OrderItem(mockMenuItemId.Object, mockQuantity.Object, mockCost.Object);
 
-            Assert.Equal(1000, item.Cost());
+            Assert.Equal(1000, item.Cost);
         }
     }
 }

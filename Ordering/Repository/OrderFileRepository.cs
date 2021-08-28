@@ -36,7 +36,7 @@ namespace Ordering.Repository
         public IOrder Read(IOrderId orderId)
         {
             Assert.NotNull(orderId, "[OrderFileRepository::Read] order id can not be null");
-            var document = orderDatabase.ReadDocument(new DocumentId(orderId.ToString()));
+            var document = orderDatabase.ReadDocument(new DocumentId(orderId.Value));
             return GetOrderFromDocument(document);
         }
 

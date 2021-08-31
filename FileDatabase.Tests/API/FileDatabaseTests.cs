@@ -3,25 +3,24 @@
     using System;
     using FileDatabase.API;
     using FileDatabase.Document;
-    using FileDatabase.Exceptions;
     using Moq;
     using Xunit;
 
     public class FileDatabaseTests
     {
-        public class TestModel { }
-
-        private readonly Mock<IDocumentManager<TestModel>> mockDocumentManager;
-        private readonly Mock<IDocument<TestModel>> mockDocument;
+        private readonly Mock<IDocumentManager<IModel>> mockDocumentManager;
+        private readonly Mock<IDocument<IModel>> mockDocument;
         private readonly Mock<IDocumentId> mockDocumentId;
-        private readonly FileDatabase<TestModel> fileDatabase;
+        private readonly Mock<IModel> mockModel;
+        private readonly FileDatabase<IModel> fileDatabase;
 
         public FileDatabaseTests()
         {
-            mockDocumentManager = new Mock<IDocumentManager<TestModel>>();
-            mockDocument = new Mock<IDocument<TestModel>>();
+            mockDocumentManager = new Mock<IDocumentManager<IModel>>();
+            mockDocument = new Mock<IDocument<IModel>>();
             mockDocumentId = new Mock<IDocumentId>();
-            fileDatabase = new FileDatabase<TestModel>(mockDocumentManager.Object);
+            mockModel = new Mock<IModel>();
+            fileDatabase = new FileDatabase<IModel>(mockDocumentManager.Object);
         }
 
         [Fact]
@@ -37,10 +36,10 @@
         public void WHEN_CreatingADocument_SHOULD_ReturnAndWriteDocument()
         {
             mockDocumentManager
-                .Setup(manager => manager.Create(It.IsAny<TestModel>()))
+                .Setup(manager => manager.Create(It.IsAny<IModel>()))
                 .Returns(mockDocument.Object);
 
-            var document = fileDatabase.CreateDocument(new TestModel());
+            var document = fileDatabase.CreateDocument(mockModel.Object);
 
             Assert.NotNull(document);
         }
@@ -71,7 +70,7 @@
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                fileDatabase.UpdateDocument(null, new TestModel());
+                fileDatabase.UpdateDocument(null, mockModel.Object);
             });
         }
 
@@ -88,10 +87,10 @@
         public void WHEN_UpdatingADocument_SHOULD_ReturnUpdatedDocument()
         {
             mockDocumentManager
-                .Setup(manager => manager.Update(It.IsAny<IDocumentId>(), It.IsAny<TestModel>()))
+                .Setup(manager => manager.Update(It.IsAny<IDocumentId>(), It.IsAny<IModel>()))
                 .Returns(mockDocument.Object);
 
-            var updatedDocument = fileDatabase.UpdateDocument(mockDocumentId.Object, new TestModel());
+            var updatedDocument = fileDatabase.UpdateDocument(mockDocumentId.Object, mockModel.Object);
 
             Assert.NotNull(updatedDocument);
         }

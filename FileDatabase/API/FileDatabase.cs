@@ -4,7 +4,7 @@ using FileDatabase.Document;
 
 namespace FileDatabase.API
 {
-    internal class FileDatabase<T>: IFileDatabase<T>
+    internal class FileDatabase<T>: IFileDatabase<T> where T : IModel
     {
         private readonly IDocumentManager<T> documentManager;
 

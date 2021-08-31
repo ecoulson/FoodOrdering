@@ -1,9 +1,8 @@
-﻿using System;
-using FileDatabase.Document;
+﻿using FileDatabase.Document;
 
 namespace FileDatabase.API
 {
-    public interface IFileDatabase<T>
+    public interface IFileDatabase<T> where T: IModel
     {
         IDocument<T> CreateDocument(T model);
         IDocument<T> UpdateDocument(IDocumentId id, T model);

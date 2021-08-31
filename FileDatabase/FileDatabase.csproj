@@ -8,11 +8,13 @@
     <None Remove="API\" />
     <None Remove="Document\" />
     <None Remove="DocumentNotFoundException\" />
+    <None Remove="Collection\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\" />
     <Folder Include="Document\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Collection\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />

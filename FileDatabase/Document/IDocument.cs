@@ -3,7 +3,7 @@ namespace FileDatabase.Document
 {
     public interface IDocument<T>
     {
-        string Id();
-        T Model { get; }
+        IDocumentId Id { get; }
+        T Model { get; set;  }
     }
 }

@@ -29,7 +29,6 @@ namespace Ordering.Repository
         public void Delete(IOrder order)
         {
             Assert.NotNull(order, "[OrderFileRepository::Delete] order can not be null");
-            var model = orderMapper.ToModel(order);
             orderDatabase.DeleteDocument(new DocumentId(order.Id));
         }
 
@@ -43,7 +42,7 @@ namespace Ordering.Repository
         private IOrder GetOrderFromDocument(IDocument<IOrderModel> document)
         {
             var order = orderMapper.ToEntity(document.Model);
-            order.Id = new OrderId(document.Id());
+            order.Id = new OrderId(document.Id.Value);
             return order;
         }
 

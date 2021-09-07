@@ -19,15 +19,16 @@ namespace FileDatabase.Document
             }
         }
 
-        public Document(T model)
+        public Document(T model): this(new DocumentId(), model)
+        {
+        }
+
+        public Document(IDocumentId id, T model)
         {
             Assert.NotNull(model, "[Document] model can not be null");
             this.model = model;
-
-            Model = this.model;
-            Id = new DocumentId();
+            Assert.NotNull(id, "[Document] id can not be null");
+            Id = id;
         }
-
-        
     }
 }

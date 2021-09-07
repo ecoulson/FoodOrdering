@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Common;
 using FileDatabase.API;
@@ -7,7 +8,7 @@ using FileDatabase.Exceptions;
 
 namespace FileDatabase.Collection
 {
-    internal class Collection<T>: ICollection<T> where T: IModel
+    internal class Collection<T>: ICollection<T>, IEnumerable<IDocument<T>> where T: IModel
     {
         private readonly ICollectionName name;
         private readonly Dictionary<IDocumentId, IDocument<T>> documentTable;
@@ -24,6 +25,11 @@ namespace FileDatabase.Collection
             Assert.NotNull(document, "[Collection::AddDocument] document can not be null");
             AssertIdDoesNotInDocumentTable(document.Id);
             documentTable.Add(document.Id, document);
+        }
+
+        internal void AddDocument(Document<T> document)
+        {
+            throw new NotImplementedException();
         }
 
         private void AssertIdDoesNotInDocumentTable(IDocumentId id)
@@ -68,6 +74,19 @@ namespace FileDatabase.Collection
             AssertIdInDocumentTable(document.Id);
             documentTable[document.Id] = document;
             return GetDocumentById(document.Id);
+        }
+
+        public IEnumerator<IDocument<T>> GetEnumerator()
+        {
+            foreach (var document in documentTable.Values)
+            {
+                yield return document;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

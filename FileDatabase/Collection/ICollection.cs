@@ -1,9 +1,11 @@
-﻿using FileDatabase.API;
+﻿using System.Collections;
+using System.Collections.Generic;
+using FileDatabase.API;
 using FileDatabase.Document;
 
 namespace FileDatabase.Collection
 {
-    public interface ICollection<T> where T: IModel
+    public interface ICollection<T>: IEnumerable<IDocument<T>> where T: IModel
     {
         void AddDocument(IDocument<T> document);
         bool HasDocument(IDocumentId documentId);

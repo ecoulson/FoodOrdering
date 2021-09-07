@@ -180,5 +180,28 @@ namespace FileDatabase.Tests.Collection
 
             Assert.NotNull(updatedDocument);
         }
+
+        [Fact]
+        public void WHEN_IteratingOverACollection_SHOULD_IterateOverEachElement()
+        {
+            var mockDocument2 = new Mock<IDocument<IModel>>();
+            var mockDocumentId2 = new Mock<IDocumentId>();
+            mockDocument
+                .Setup(document => document.Id)
+                .Returns(mockDocumentId.Object);
+            mockDocument2
+                .Setup(document => document.Id)
+                .Returns(mockDocumentId2.Object);
+            collection.AddDocument(mockDocument.Object);
+            collection.AddDocument(mockDocument2.Object);
+
+            int count = 0;
+            foreach (var document in collection)
+            {
+                count++;
+            }
+
+            Assert.Equal(2, count);
+        }
     }
 }

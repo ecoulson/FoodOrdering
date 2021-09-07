@@ -10,9 +10,9 @@ namespace FileDatabase.Document
 
         }
 
-        public DocumentId(IId id): base(id)
+        public DocumentId(string id): base(id)
         {
-            Guid.Parse(id.Value);
+            Guid.Parse(id);
         }
     }
 }

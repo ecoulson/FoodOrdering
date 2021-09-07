@@ -5,6 +5,8 @@ using FileDatabase.Exceptions;
 
 namespace FileDatabase.Collection
 {
+    using FileDatabase.File;
+
     internal class CollectionName: ICollectionName
     {
         private static readonly Regex CollectionNamePattern =
@@ -25,6 +27,11 @@ namespace FileDatabase.Collection
             {
                 throw new IllegalCollectionNameException(name);
             }
+        }
+
+        public IFile GetCollectionFile()
+        {
+            return new File($"{Value}.json");
         }
     }
 }

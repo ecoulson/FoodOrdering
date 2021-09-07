@@ -9,14 +9,21 @@
     <None Remove="Document\" />
     <None Remove="DocumentNotFoundException\" />
     <None Remove="Collection\" />
+    <None Remove="File\" />
+    <None Remove="Newtonsoft.Json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\" />
     <Folder Include="Document\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Collection\" />
+    <Folder Include="JSON\" />
+    <Folder Include="File\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 </Project>

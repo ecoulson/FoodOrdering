@@ -4,6 +4,14 @@ namespace Common
 {
     public class Assert
     {
+        public static void True(bool expression, string message)
+        {
+            if (!expression)
+            {
+                throw new ArgumentException(message);
+            }
+        }
+
         public static void NotNull(object o, string message)
         {
             if (o == null)

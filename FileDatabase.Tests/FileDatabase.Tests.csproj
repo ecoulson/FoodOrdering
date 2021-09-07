@@ -19,11 +19,15 @@
     <None Remove="Moq" />
     <None Remove="Document\" />
     <None Remove="Collection\" />
+    <None Remove="File\" />
+    <None Remove="JSON\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\" />
     <Folder Include="Document\" />
     <Folder Include="Collection\" />
+    <Folder Include="File\" />
+    <Folder Include="JSON\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FileDatabase\FileDatabase.csproj" />

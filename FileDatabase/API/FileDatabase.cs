@@ -1,5 +1,4 @@
-﻿using System;
-using Common;
+﻿using Common;
 using FileDatabase.Document;
 
 namespace FileDatabase.API
@@ -11,6 +10,7 @@ namespace FileDatabase.API
         public FileDatabase(IDocumentManager<T> documentManager)
         {
             Assert.NotNull(documentManager, "[FileDatabase] document manager can not be null");
+            // Create file so that reads will find a file
             this.documentManager = documentManager;
         }
 

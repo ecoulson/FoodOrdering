@@ -8,7 +8,7 @@ namespace FileDatabase.Exceptions
     public class DocumentExistsException: Exception
     {
         public DocumentExistsException(ICollectionName collectionName, IDocumentId id):
-            base($"Document with id ${id.Value} already exists in collection ${collectionName.Value}")
+            base($"Document with id {id.Value} already exists in collection {collectionName.Value}")
         {
         }
     }

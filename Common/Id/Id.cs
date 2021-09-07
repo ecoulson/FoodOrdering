@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Common.Id
 {
-    public abstract class Id: IId, IEquatable<IId>
+    public abstract class Id: IId
     {
         public string Value { get; }
 
@@ -16,13 +16,17 @@ namespace Common.Id
             Value = value;
         }
 
-        public bool Equals(IId other)
+        public override bool Equals(object other)
         {
+            if (!(other is IId))
+            {
+                return false;
+            }
             if (other == null)
             {
                 return false;
             }
-            return Value == other.Value;
+            return Value == ((IId)other).Value;
         }
 
         public override int GetHashCode()

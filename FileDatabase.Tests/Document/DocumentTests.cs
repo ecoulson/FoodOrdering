@@ -28,6 +28,15 @@ namespace FileDatabase.Tests.Document
         }
 
         [Fact]
+        public void WHEN_CreatingADocumentWithNullId_SHOULD_ThrowException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                new Document<IModel>(null, mockModel.Object);
+            });
+        }
+
+        [Fact]
         public void WHEN_SettingADocumentWithNullModel_SHOULD_ThrowException()
         {
             Assert.Throws<ArgumentNullException>(() =>
